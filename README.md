@@ -188,7 +188,7 @@ Language changes send `Accept-Language` and invalidate cached queries to fetch l
 
 Before browser tests, run `npx playwright install chromium` and prepare the sibling backend with migrations/seeding. Playwright starts or reuses local servers. Tests do not reset development data, but logging into demo accounts revokes their earlier sessions. Test processes should not compete for the same accounts.
 
-Last local verification passed **16 integration tests**, **2 desktop/mobile browser tests**, and the production build; backend passed **49 tests / 241 assertions**. Four backend live-AI tests remained skipped. Live tests require `RUN_LIVE_AI=1`, a valid provider key and quota. [Testing details](https://github.com/tamourax/CRMbackend/blob/main/docs/TESTING.md).
+Verification on 17 November 2026 passed **16 integration tests**, **3 browser tests**, production build and formatting; backend passed **51 default tests / 247 assertions** plus a separate **4 live Gemini tests / 22 assertions**. Live tests require `RUN_LIVE_AI=1`, a valid provider key and quota. [Testing details](https://github.com/tamourax/CRMbackend/blob/main/docs/TESTING.md) · [Assessment coverage and submission qualifications](https://github.com/tamourax/CRMbackend/blob/main/docs/ASSESSMENT_REVIEW.md). GitHub Actions currently cannot start because of the account billing lock; these results are local verification.
 
 ## Troubleshooting and production
 
