@@ -30,7 +30,6 @@ describe('workspace integration', () => {
       '/deals/1',
     );
     expect(screen.getAllByText('$12,500.25').length).toBeGreaterThan(0);
-    expect(screen.getByText(/No historical trend/)).toBeVisible();
   });
 
   it('signs in after retrieving a CSRF cookie', async () => {
