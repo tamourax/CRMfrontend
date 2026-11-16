@@ -66,6 +66,8 @@ test('mobile navigation and layout remain usable', async ({ page }, testInfo) =>
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Sales overview' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'High-value opportunities' })).toBeVisible();
+  await page.locator('tbody tr').first().waitFor();
+  await page.evaluate(() => document.fonts.ready);
   const layout = await page.evaluate(() => ({
     width: window.innerWidth,
     scrollWidth: document.documentElement.scrollWidth,

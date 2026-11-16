@@ -34,7 +34,7 @@ Chat questions are independent; messages are kept only in the page's current ses
 
 ## AI status
 
-No live key was supplied for this delivery. The application honestly shows **AI is not configured**. The backend contains a real OpenAI Responses adapter and strict read-only tools, but live generation has not been verified. Test mocks do not run in the application. Add a valid key to the **backend** `.env`, clear Laravel configuration, and follow the backend live evaluation checklist.
+The backend now supports Gemini and OpenAI. A supplied Gemini key is configured only in the ignored local backend environment; fresh checkouts require their own key. Test mocks never run in the app. Missing keys and provider failures are displayed honestly. Clear backend configuration and restart its server after environment changes, then refresh the frontend.
 
 ## Verification
 
@@ -46,7 +46,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Vitest/Testing Library/MSW cover page integration, authentication, filters, states, summaries/citations, chat, and logout. Playwright starts/reuses both local servers, uses real seeded PostgreSQL data, checks CSRF and two-account isolation, and verifies mobile layout. Backend must be installed and seeded first. Browser tests do not reset its database. API-key-free missing-AI behavior is tested; no live generation is claimed.
+Vitest/Testing Library/MSW cover page integration, authentication, filters, states, summaries/citations, chat, and logout. Playwright starts/reuses both local servers, uses real seeded PostgreSQL data, checks CSRF and two-account isolation, and verifies mobile layout. Backend must be installed and seeded first. Browser tests do not reset its database. For opt-in live browser verification, set `RUN_LIVE_AI=1` and run `npm run test:e2e -- e2e/live-ai.spec.ts`. It compares a generated negotiation answer with the real report and consumes provider quota.
 
 ## Demo
 
@@ -54,7 +54,7 @@ Vitest/Testing Library/MSW cover page integration, authentication, filters, stat
 - [Customer screenshot](docs/images/customer.png)
 - [Assistant screenshot](docs/images/assistant.png)
 - [Mobile screenshot](docs/images/mobile.png)
-- Re-record using `npm run demo` while both local servers are running and no provider key is configured. The script deliberately records the missing-key state and uses only fictional seeds.
+- Re-record using `npm run demo` while both servers are running. It captures real AI results when configured, or the missing-key state otherwise. It uses fictional seeds and displays actual provider errors instead of inventing answers.
 
 The video is a short automated walkthrough without narration; the backend `docs/DEMO.md` contains a longer technical presentation script. Screenshots/recording are snapshots, so their seeded dates may differ from a later re-seed.
 
