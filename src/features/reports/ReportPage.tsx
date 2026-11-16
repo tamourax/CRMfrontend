@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { usePriorityDeals } from '../deals/queries';
+import { useSalesReport } from './queries';
+
 import { Link } from 'react-router-dom';
 import {
   ArrowDownRight,
@@ -13,24 +15,13 @@ import {
   Target,
   TrendingUp,
 } from 'lucide-react';
-import { api, compactMoney, dateLabel, money, titleCase } from '../lib/api';
-import type { Deal, Page, SalesReport } from '../types';
-import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../components/ui';
+import { compactMoney, dateLabel, money, titleCase } from '../../lib/format';
+
+import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../../components';
 
 export function ReportPage() {
-  const query = useQuery({
-    queryKey: ['report'],
-    queryFn: async () => (await api.get<{ data: SalesReport }>('/api/reports/sales')).data.data,
-  });
-  const deals = useQuery({
-    queryKey: ['priority-deals'],
-    queryFn: async () =>
-      (
-        await api.get<Page<Deal>>('/api/deals', {
-          params: { stage: 'open', per_page: 5, sort: 'value_desc' },
-        })
-      ).data,
-  });
+  const query = useSalesReport();
+  const deals = usePriorityDeals();
   if (query.isPending) return <Loading />;
   if (query.isError) return <ErrorState error={query.error} retry={() => void query.refetch()} />;
   const report = query.data;
