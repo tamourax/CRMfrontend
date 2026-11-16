@@ -15,12 +15,16 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { errorMessage } from '../lib/api';
 import type { User } from '../types';
+import { useTheme } from '../preferences/ThemeProvider';
 
 export function WorkspaceLayout({ user }: { user: User }) {
   const logout = useLogout();
+  const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const initials = user.name
     .split(' ')
@@ -110,6 +114,9 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <strong>Sales</strong>
           </div>
           <div className="topbar-right">
+            <button className="preference-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Light mode' : 'Dark mode'}>
+              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
             <span className="live-dot" />
             Private workspace<span className="topbar-avatar">{initials}</span>
           </div>
