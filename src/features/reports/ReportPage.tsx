@@ -69,7 +69,7 @@ export function ReportPage() {
                   <i
                     key={stage.stage}
                     style={{ height: `${Math.max((Number(stage.value) / maxValue) * 100, 2)}%` }}
-                    title={titleCase(stage.stage)}
+                    title={stage.label ?? titleCase(stage.stage)}
                   />
                 ))}
             </div>
@@ -138,7 +138,7 @@ export function ReportPage() {
               <div className="chart-row" key={stage.stage}>
                 <div className="chart-label">
                   <span className={`stage-dot ${stage.stage}`} />
-                  {titleCase(stage.stage)}
+                  {stage.label ?? titleCase(stage.stage)}
                   <small>{stage.count}</small>
                 </div>
                 <div className="bar-track">

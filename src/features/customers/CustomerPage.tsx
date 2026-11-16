@@ -23,7 +23,7 @@ export function CustomerPage() {
         eyebrow="CUSTOMER PROFILE"
         title={customer.company}
         description={`Your relationship with ${customer.name}.`}
-        action={<Badge value={customer.status} />}
+        action={<Badge value={customer.status} label={customer.status_label} />}
       />
       <section className="customer-cover" aria-label={t('customers.overview')}>
         <img src="/images/cairo-business-district.svg" alt="Illustration of the Nile and Cairo business district" />

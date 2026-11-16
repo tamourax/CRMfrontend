@@ -24,7 +24,7 @@ export function DealPage() {
         eyebrow={`OPPORTUNITY · DL-${String(deal.id).padStart(4, '0')}`}
         title={deal.title}
         description="Every detail you need to keep this opportunity moving."
-        action={<Badge value={deal.stage} />}
+        action={<Badge value={deal.stage} label={deal.stage_label} />}
       />
       <section className="project-cover" aria-label={t('deals.projectOverview')}>
         <img src="/images/cairo-business-district.svg" alt="Illustration of a Cairo business district along the Nile" />

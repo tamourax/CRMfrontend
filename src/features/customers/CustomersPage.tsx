@@ -99,7 +99,7 @@ export function CustomersPage() {
                       <td className="muted">{customer.email || 'Not provided'}</td>
                       <td>{customer.industry}</td>
                       <td>
-                        <Badge value={customer.status} />
+                        <Badge value={customer.status} label={customer.status_label} />
                       </td>
                       <td>{customer.deals_count}</td>
                       <td>

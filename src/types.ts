@@ -15,6 +15,7 @@ export interface Customer {
   industry: string;
   city?: string | null;
   status: 'prospect' | 'active' | 'inactive';
+  status_label?: string;
   notes?: string | null;
   deals_count?: number;
   deals?: Deal[];
@@ -25,6 +26,7 @@ export interface Deal {
   title: string;
   value: string;
   stage: Stage;
+  stage_label?: string;
   expected_close_date: string | null;
   description?: string | null;
   lost_reason?: string | null;
@@ -36,6 +38,7 @@ export interface Page<T> {
 }
 export interface StageMetric {
   stage: Stage;
+  label?: string;
   count: number;
   value: string;
 }

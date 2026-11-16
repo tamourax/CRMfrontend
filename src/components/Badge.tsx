@@ -1,5 +1,5 @@
 import { titleCase } from '../lib/format';
 
-export function Badge({ value }: { value: string }) {
-  return <span className={`badge badge-${value}`}>{titleCase(value)}</span>;
+export function Badge({ value, label }: { value: string; label?: string }) {
+  return <span className={`badge badge-${value}`}>{label ?? titleCase(value)}</span>;
 }

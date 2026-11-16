@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import en from '../locales/en.json';
 import ar from '../locales/ar.json';
 
@@ -29,11 +30,17 @@ function initialLocale(): Locale {
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
+  const queryClient = useQueryClient();
+  const previousLocale = useRef(locale);
   useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
     localStorage.setItem('orbit-locale', locale);
-  }, [locale]);
+    if (previousLocale.current !== locale) {
+      previousLocale.current = locale;
+      void queryClient.invalidateQueries();
+    }
+  }, [locale, queryClient]);
   const value = useMemo(() => ({ locale, setLocale }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }

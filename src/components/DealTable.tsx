@@ -49,7 +49,7 @@ export function DealTable({
               )}
               <td className="numeric">{money(deal.value)}</td>
               <td>
-                <Badge value={deal.stage} />
+                <Badge value={deal.stage} label={deal.stage_label} />
               </td>
               <td className="muted">{dateLabel(deal.expected_close_date)}</td>
               <td>
