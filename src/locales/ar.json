@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "overview": "نظرة عامة",
+    "customers": "العملاء",
+    "deals": "الصفقات",
+    "assistant": "مساعد الذكاء الاصطناعي",
+    "workspace": "مساحة العمل",
+    "sales": "المبيعات",
+    "section": "مساحة العمل"
+  },
+  "layout": {
+    "salesWorkspace": "مساحة المبيعات",
+    "personalWorkspace": "مساحة شخصية",
+    "privateWorkspace": "مساحة عمل خاصة",
+    "signOut": "تسجيل الخروج",
+    "salesRepresentative": "مندوب مبيعات",
+    "dataStory": "بياناتك تحكي قصة أوضح.",
+    "assistantHint": "اسأل المساعد عن الصفقات والفرص والخطوة التالية.",
+    "exploreAssistant": "اكتشف المساعد",
+    "exploreCrm": "استكشف نظامك",
+    "footer": "مصممة لعلاقات عمل مثمرة.",
+    "privacy": "مساحة عملك. بياناتك."
+  },
+  "auth": {
+    "welcomeBack": "مرحبًا بعودتك",
+    "signInHint": "سجّل الدخول إلى مساحة المبيعات.",
+    "workEmail": "البريد الإلكتروني للعمل",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "demoWorkspace": "مساحة تجريبية",
+    "demoHint": "استخدم الحساب التجريبي وكلمة المرور في ملف README."
+  },
+  "common": {
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "darkMode": "التبديل إلى الوضع الداكن",
+    "lightMode": "التبديل إلى الوضع الفاتح",
+    "sources": "المصادر",
+    "tryAgain": "أعد المحاولة",
+    "notFound": "الصفحة غير موجودة"
+  },
+  "customers": {
+    "search": "ابحث بالاسم أو الشركة…",
+    "allStatuses": "كل الحالات",
+    "contactCompany": "جهة الاتصال والشركة",
+    "contactName": "اسم جهة الاتصال",
+    "industry": "القطاع",
+    "relationshipNotes": "ملاحظات العلاقة",
+    "associatedDeals": "الصفقات المرتبطة",
+    "empty": "لم يتم العثور على عملاء"
+  },
+  "deals": {
+    "search": "ابحث عن صفقة…",
+    "name": "اسم الصفقة",
+    "value": "القيمة",
+    "stage": "المرحلة",
+    "expectedClose": "الإغلاق المتوقع",
+    "empty": "لم يتم العثور على صفقات",
+    "anyClose": "أي تاريخ إغلاق",
+    "thisMonth": "هذا الشهر",
+    "overdue": "متأخرة ومفتوحة",
+    "highestFirst": "الأعلى قيمة أولًا",
+    "lowestFirst": "الأقل قيمة أولًا",
+    "closingSoonest": "الأقرب للإغلاق",
+    "newestFirst": "الأحدث أولًا",
+    "overview": "تفاصيل الصفقة",
+    "dealValue": "قيمة الصفقة",
+    "lossReason": "سبب الخسارة"
+  },
+  "reports": {
+    "title": "نظرة عامة على المبيعات",
+    "pipeline": "مسار المبيعات حسب المرحلة",
+    "topRelationships": "أهم علاقات العملاء",
+    "customersByValue": "العملاء حسب إجمالي قيمة الصفقات",
+    "opportunities": "فرص عالية القيمة"
+  },
+  "assistant": {
+    "sources": "المصادر",
+    "questionPlaceholder": "اسأل عن الصفقات أو العملاء أو مسار المبيعات…",
+    "send": "إرسال السؤال",
+    "dealHint": "اسأل المساعد عن هذه الصفقة أو مسار المبيعات."
+  }
+}
