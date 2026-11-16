@@ -11,15 +11,8 @@
   "layout": {
     "salesWorkspace": "Sales workspace",
     "personalWorkspace": "Personal workspace",
-    "privateWorkspace": "Private workspace",
     "signOut": "Sign out",
-    "salesRepresentative": "Sales representative",
-    "dataStory": "Your data, a clearer story.",
-    "assistantHint": "Ask your assistant about deals, opportunities, and what comes next.",
-    "exploreAssistant": "Explore assistant",
-    "exploreCrm": "Explore your CRM",
-    "footer": "Made for meaningful connections.",
-    "privacy": "Your workspace. Your data."
+    "salesRepresentative": "Sales representative"
   },
   "auth": {
     "welcomeBack": "Welcome back",
@@ -27,9 +20,7 @@
     "workEmail": "Work email",
     "password": "Password",
     "passwordPlaceholder": "Enter your password",
-    "signIn": "Sign in",
-    "demoWorkspace": "Demo workspace",
-    "demoHint": "Use the seeded account and password from the README."
+    "signIn": "Sign in"
   },
   "common": {
     "english": "English",

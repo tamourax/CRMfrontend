@@ -2,8 +2,7 @@ import { useLogin } from './queries';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
-import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Building2, LoaderCircle } from 'lucide-react';
 import { errorMessage } from '../../lib/api';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../../preferences/ThemeProvider';
@@ -22,44 +21,13 @@ export function LoginPage() {
   }
   return (
     <main className="login-page">
-      <section className="login-story">
-        <Link to="/" className="brand">
-          <Orbit size={30} />
-          <span>
-            7B <span className="brand-dot">AHMED TAMER</span>
-          </span>
-        </Link>
-        <div>
-          <div className="eyebrow light">YOUR NEXT OPPORTUNITY STARTS HERE</div>
-          <h1>
-            Good relationships.
-            <br />
-            Great possibilities.
-          </h1>
-          <p>
-            A little more clarity. A lot more momentum.
-            <br />
-            Your customers, deals, and next move — together.
-          </p>
-          <div className="orbit-art" aria-hidden="true">
-            <div />
-            <div />
-            <div />
-            <span>
-              <Handshake size={48} />
-            </span>
-            <i />
-            <b />
-          </div>
-        </div>
-        <span className="login-caption">A thoughtful workspace for moving business forward.</span>
-      </section>
       <section className="login-form-side">
         <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? t('common.lightMode') : t('common.darkMode')}>
           {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
         </button>
         <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
         <div className="login-form">
+          <strong className="login-brand">7B AHMED TAMER</strong>
           <span className="welcome-icon">
             <Building2 size={23} />
           </span>
@@ -100,16 +68,7 @@ export function LoginPage() {
               )}
             </button>
           </form>
-          <div className="demo-hint">
-            <ShieldCheck size={18} />
-            <p>
-              {t('auth.demoWorkspace')}
-              <br />
-              <span>{t('auth.demoHint')}</span>
-            </p>
-          </div>
         </div>
-        <span className="login-footer">7B AHMED TAMER · Built for a clearer picture.</span>
       </section>
     </main>
   );
