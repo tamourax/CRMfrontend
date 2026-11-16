@@ -22,6 +22,79 @@
 body {
   margin: 0;
 }
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --line: #293a34;
+  --muted: #a1b0a9;
+  --shadow: 0 5px 22px #0005;
+  background: #111a17;
+  color: #e4ece8;
+}
+html[data-theme='dark'] body,
+html[data-theme='dark'] .workspace,
+html[data-theme='dark'] .workspace-main,
+html[data-theme='dark'] .main-content {
+  background: #111a17;
+  color: #e4ece8;
+}
+html[data-theme='dark'] .sidebar,
+html[data-theme='dark'] .topbar,
+html[data-theme='dark'] .workspace-switch,
+html[data-theme='dark'] .panel,
+html[data-theme='dark'] .card,
+html[data-theme='dark'] .stat-card,
+html[data-theme='dark'] .table-wrap,
+html[data-theme='dark'] .customer-card,
+html[data-theme='dark'] .deal-card,
+html[data-theme='dark'] .assistant-card,
+html[data-theme='dark'] .login-form-side,
+html[data-theme='dark'] .login-form {
+  background-color: #18231f;
+  color: #e4ece8;
+  border-color: #293a34;
+}
+html[data-theme='dark'] input,
+html[data-theme='dark'] select,
+html[data-theme='dark'] textarea {
+  background-color: #121b18;
+  color: #e4ece8;
+  border-color: #3a4c44;
+}
+html[data-theme='dark'] th,
+html[data-theme='dark'] .table-row,
+html[data-theme='dark'] .workspace-footer,
+html[data-theme='dark'] .breadcrumb,
+html[data-theme='dark'] .sidebar nav > a {
+  color: #b7c5be;
+  border-color: #293a34;
+}
+html[data-theme='dark'] .sidebar nav > a:hover,
+html[data-theme='dark'] .sidebar nav > a.active {
+  background: #263a31;
+  color: #b5dfc2;
+}
+html[data-theme='dark'] .button.secondary,
+html[data-theme='dark'] .stage-tab,
+html[data-theme='dark'] .preference-toggle {
+  background: #24332d;
+  color: #e4ece8;
+  border-color: #3a4c44;
+}
+.preference-toggle {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+}
+.login-theme-toggle {
+  position: absolute;
+  top: 24px;
+  inset-inline-end: 24px;
+}
 button,
 input,
 select,

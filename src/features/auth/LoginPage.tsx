@@ -5,11 +5,14 @@ import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit, ShieldCheck } from 'lucide-react';
 import { errorMessage } from '../../lib/api';
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from '../../preferences/ThemeProvider';
 
 export function LoginPage() {
   const [email, setEmail] = useState('alex@orbit.example');
   const [password, setPassword] = useState('');
   const login = useLogin();
+  const { theme, toggleTheme } = useTheme();
   function submit(event: FormEvent) {
     event.preventDefault();
     login.mutate({ email, password });
@@ -49,6 +52,9 @@ export function LoginPage() {
         <span className="login-caption">A thoughtful workspace for moving business forward.</span>
       </section>
       <section className="login-form-side">
+        <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+        </button>
         <div className="login-form">
           <span className="welcome-icon">
             <Building2 size={23} />
