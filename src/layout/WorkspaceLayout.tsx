@@ -21,10 +21,13 @@ import {
 import { errorMessage } from '../lib/api';
 import type { User } from '../types';
 import { useTheme } from '../preferences/ThemeProvider';
+import { useLocale, useT } from '../preferences/LocaleProvider';
 
 export function WorkspaceLayout({ user }: { user: User }) {
   const logout = useLogout();
   const { theme, toggleTheme } = useTheme();
+  const { locale, setLocale } = useLocale();
+  const t = useT();
   const [mobileOpen, setMobileOpen] = useState(false);
   const initials = user.name
     .split(' ')
@@ -37,23 +40,23 @@ export function WorkspaceLayout({ user }: { user: User }) {
         <Link className="brand" to="/" onClick={() => setMobileOpen(false)}>
           <Orbit size={28} />
           <span>
-            orbit<span className="brand-dot">.</span>
+            7B <span className="brand-dot">AHMED TAMER</span>
           </span>
         </Link>
         <div className="workspace-switch">
           <span className="workspace-mark">O</span>
           <div>
-            Sales workspace<small>Personal workspace</small>
+            {t('Sales workspace')}<small>{t('Personal workspace')}</small>
           </div>
           <ChevronRight size={14} />
         </div>
-        <div className="nav-label">WORKSPACE</div>
+        <div className="nav-label">{t('WORKSPACE')}</div>
         <nav aria-label="Main navigation">
           {[
-            { to: '/', icon: LayoutDashboard, text: 'Overview', end: true },
-            { to: '/customers', icon: Users, text: 'Customers' },
-            { to: '/deals', icon: Handshake, text: 'Deals' },
-            { to: '/assistant', icon: Sparkles, text: 'AI Assistant' },
+            { to: '/', icon: LayoutDashboard, text: t('Overview'), end: true },
+            { to: '/customers', icon: Users, text: t('Customers') },
+            { to: '/deals', icon: Handshake, text: t('Deals') },
+            { to: '/assistant', icon: Sparkles, text: t('AI Assistant') },
           ].map(({ to, icon: Icon, text, end }) => (
             <NavLink end={end} key={to} to={to} onClick={() => setMobileOpen(false)}>
               <Icon size={19} />
@@ -67,24 +70,24 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <span>
               <Sparkles size={19} />
             </span>
-            <h3>Your data, a clearer story.</h3>
-            <p>Ask your assistant about deals, opportunities, and what comes next.</p>
+            <h3>{t('Your data, a clearer story.')}</h3>
+            <p>{t('Ask your assistant about deals, opportunities, and what comes next.')}</p>
             <Link to="/assistant" onClick={() => setMobileOpen(false)}>
-              Explore assistant <ArrowUpRight size={15} />
+              {t('Explore assistant')} <ArrowUpRight size={15} />
             </Link>
           </div>
           <Link className="help-link" to="/assistant">
-            <CircleHelp size={17} /> Explore your CRM <ArrowUpRight size={13} />
+            <CircleHelp size={17} /> {t('Explore your CRM')} <ArrowUpRight size={13} />
           </Link>
           <div className="user-row">
             <span className="avatar">{initials}</span>
             <div>
               <strong>{user.name}</strong>
-              <small>Sales representative</small>
+              <small>{t('Sales representative')}</small>
             </div>
             <button
-              aria-label="Sign out"
-              title="Sign out"
+              aria-label={t('Sign out')}
+              title={t('Sign out')}
               disabled={logout.isPending}
               onClick={() => logout.mutate()}
             >
@@ -117,17 +120,18 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <button className="preference-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Light mode' : 'Dark mode'}>
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
+            <button type="button" className="locale-toggle" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? 'عربي' : 'EN'}</button>
             <span className="live-dot" />
-            Private workspace<span className="topbar-avatar">{initials}</span>
+            {t('Private workspace')}<span className="topbar-avatar">{initials}</span>
           </div>
         </header>
         <main className="main-content">
           <Outlet />
         </main>
         <footer className="workspace-footer">
-          <span>Made for meaningful connections.</span>
+          <span>{t('Made for meaningful connections.')}</span>
           <span>
-            <ShieldCheck size={13} /> Your workspace. Your data.
+            <ShieldCheck size={13} /> {t('Your workspace. Your data.')}
           </span>
         </footer>
       </div>

@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, it } from 'vitest';
 import { App } from '../App';
+import { LocaleProvider } from '../preferences/LocaleProvider';
 import { server, page, result } from './server';
 
 function mount(path = '/') {
@@ -14,7 +15,7 @@ function mount(path = '/') {
   return render(
     <QueryClientProvider client={client}>
       <MemoryRouter initialEntries={[path]}>
-        <App />
+        <LocaleProvider><App /></LocaleProvider>
       </MemoryRouter>
     </QueryClientProvider>,
   );

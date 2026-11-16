@@ -1,6 +1,6 @@
 <p align="center"><img src="public/favicon.svg" width="64" alt="Orbit CRM" /></p>
 
-<h1 align="center">Orbit CRM · Frontend</h1>
+<h1 align="center">7B AHMED TAMER · Frontend</h1>
 
 <p align="center">Customers, opportunities, and grounded AI — in one sales workspace.</p>
 

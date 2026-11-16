@@ -7,12 +7,15 @@ import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit, ShieldCheck } fr
 import { errorMessage } from '../../lib/api';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../../preferences/ThemeProvider';
+import { useLocale, useT } from '../../preferences/LocaleProvider';
 
 export function LoginPage() {
   const [email, setEmail] = useState('alex@orbit.example');
   const [password, setPassword] = useState('');
   const login = useLogin();
   const { theme, toggleTheme } = useTheme();
+  const { locale, setLocale } = useLocale();
+  const t = useT();
   function submit(event: FormEvent) {
     event.preventDefault();
     login.mutate({ email, password });
@@ -23,7 +26,7 @@ export function LoginPage() {
         <Link to="/" className="brand">
           <Orbit size={30} />
           <span>
-            orbit<span className="brand-dot">.</span>
+            7B <span className="brand-dot">AHMED TAMER</span>
           </span>
         </Link>
         <div>
@@ -55,14 +58,15 @@ export function LoginPage() {
         <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
           {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
         </button>
+        <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? 'عربي' : 'EN'}</button>
         <div className="login-form">
           <span className="welcome-icon">
             <Building2 size={23} />
           </span>
-          <h2>Welcome back</h2>
-          <p>Sign in to your sales workspace.</p>
+          <h2>{t('Welcome back')}</h2>
+          <p>{t('Sign in to your sales workspace.')}</p>
           <form onSubmit={submit}>
-            <label htmlFor="email">Work email</label>
+            <label htmlFor="email">{t('Work email')}</label>
             <input
               id="email"
               type="email"
@@ -71,7 +75,7 @@ export function LoginPage() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('Password')}</label>
             <input
               id="password"
               type="password"
@@ -79,7 +83,7 @@ export function LoginPage() {
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter your password"
+              placeholder={t('Enter your password')}
             />
             {login.isError && (
               <p className="inline-error" role="alert">
@@ -91,7 +95,7 @@ export function LoginPage() {
                 <LoaderCircle size={17} className="spin" />
               ) : (
                 <>
-                  Sign in <ArrowRight size={17} />
+                  {t('Sign in')} <ArrowRight size={17} />
                 </>
               )}
             </button>
@@ -99,13 +103,13 @@ export function LoginPage() {
           <div className="demo-hint">
             <ShieldCheck size={18} />
             <p>
-              Demo workspace
+              {t('Demo workspace')}
               <br />
-              <span>Use the seeded account and password from the README.</span>
+              <span>{t('Use the seeded account and password from the README.')}</span>
             </p>
           </div>
         </div>
-        <span className="login-footer">Orbit CRM · Built for a clearer picture.</span>
+        <span className="login-footer">7B AHMED TAMER · Built for a clearer picture.</span>
       </section>
     </main>
   );
