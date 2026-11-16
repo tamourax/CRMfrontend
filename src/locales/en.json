@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "overview": "Overview",
+    "customers": "Customers",
+    "deals": "Deals",
+    "assistant": "AI Assistant",
+    "workspace": "Workspace",
+    "sales": "Sales",
+    "section": "WORKSPACE"
+  },
+  "layout": {
+    "salesWorkspace": "Sales workspace",
+    "personalWorkspace": "Personal workspace",
+    "privateWorkspace": "Private workspace",
+    "signOut": "Sign out",
+    "salesRepresentative": "Sales representative",
+    "dataStory": "Your data, a clearer story.",
+    "assistantHint": "Ask your assistant about deals, opportunities, and what comes next.",
+    "exploreAssistant": "Explore assistant",
+    "exploreCrm": "Explore your CRM",
+    "footer": "Made for meaningful connections.",
+    "privacy": "Your workspace. Your data."
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInHint": "Sign in to your sales workspace.",
+    "workEmail": "Work email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signIn": "Sign in",
+    "demoWorkspace": "Demo workspace",
+    "demoHint": "Use the seeded account and password from the README."
+  },
+  "common": {
+    "english": "English",
+    "arabic": "Arabic",
+    "darkMode": "Switch to dark mode",
+    "lightMode": "Switch to light mode",
+    "sources": "Sources",
+    "tryAgain": "Try again",
+    "notFound": "Page not found"
+  },
+  "customers": {
+    "search": "Search name or company…",
+    "allStatuses": "All statuses",
+    "contactCompany": "Contact & company",
+    "contactName": "Contact name",
+    "industry": "Industry",
+    "relationshipNotes": "Relationship notes",
+    "associatedDeals": "Associated deals",
+    "empty": "No customers found"
+  },
+  "deals": {
+    "search": "Search deals…",
+    "name": "Deal name",
+    "value": "Value",
+    "stage": "Stage",
+    "expectedClose": "Expected close",
+    "empty": "No deals found",
+    "anyClose": "Any closing date",
+    "thisMonth": "This month",
+    "overdue": "Overdue & open",
+    "highestFirst": "Highest value first",
+    "lowestFirst": "Lowest value first",
+    "closingSoonest": "Closing soonest",
+    "newestFirst": "Newest first",
+    "overview": "Deal overview",
+    "dealValue": "Deal value",
+    "lossReason": "Reason for loss"
+  },
+  "reports": {
+    "title": "Sales overview",
+    "pipeline": "Pipeline by stage",
+    "topRelationships": "Top relationships",
+    "customersByValue": "Customers by total deal value",
+    "opportunities": "High-value opportunities"
+  },
+  "assistant": {
+    "sources": "Sources",
+    "questionPlaceholder": "Ask about your deals, customers, or pipeline…",
+    "send": "Send question",
+    "dealHint": "Ask your assistant about this deal or the wider pipeline."
+  }
+}

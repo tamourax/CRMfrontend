@@ -55,18 +55,18 @@ export function LoginPage() {
         <span className="login-caption">A thoughtful workspace for moving business forward.</span>
       </section>
       <section className="login-form-side">
-        <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+        <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? t('common.lightMode') : t('common.darkMode')}>
           {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
         </button>
-        <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? 'عربي' : 'EN'}</button>
+        <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
         <div className="login-form">
           <span className="welcome-icon">
             <Building2 size={23} />
           </span>
-          <h2>{t('Welcome back')}</h2>
-          <p>{t('Sign in to your sales workspace.')}</p>
+          <h2>{t('auth.welcomeBack')}</h2>
+          <p>{t('auth.signInHint')}</p>
           <form onSubmit={submit}>
-            <label htmlFor="email">{t('Work email')}</label>
+            <label htmlFor="email">{t('auth.workEmail')}</label>
             <input
               id="email"
               type="email"
@@ -75,7 +75,7 @@ export function LoginPage() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label htmlFor="password">{t('Password')}</label>
+            <label htmlFor="password">{t('auth.password')}</label>
             <input
               id="password"
               type="password"
@@ -83,7 +83,7 @@ export function LoginPage() {
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder={t('Enter your password')}
+              placeholder={t('auth.passwordPlaceholder')}
             />
             {login.isError && (
               <p className="inline-error" role="alert">
@@ -95,7 +95,7 @@ export function LoginPage() {
                 <LoaderCircle size={17} className="spin" />
               ) : (
                 <>
-                  {t('Sign in')} <ArrowRight size={17} />
+                  {t('auth.signIn')} <ArrowRight size={17} />
                 </>
               )}
             </button>
@@ -103,9 +103,9 @@ export function LoginPage() {
           <div className="demo-hint">
             <ShieldCheck size={18} />
             <p>
-              {t('Demo workspace')}
+              {t('auth.demoWorkspace')}
               <br />
-              <span>{t('Use the seeded account and password from the README.')}</span>
+              <span>{t('auth.demoHint')}</span>
             </p>
           </div>
         </div>

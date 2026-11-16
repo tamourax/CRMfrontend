@@ -46,17 +46,17 @@ export function WorkspaceLayout({ user }: { user: User }) {
         <div className="workspace-switch">
           <span className="workspace-mark">O</span>
           <div>
-            {t('Sales workspace')}<small>{t('Personal workspace')}</small>
+            {t('layout.salesWorkspace')}<small>{t('layout.personalWorkspace')}</small>
           </div>
           <ChevronRight size={14} />
         </div>
-        <div className="nav-label">{t('WORKSPACE')}</div>
+        <div className="nav-label">{t('nav.section')}</div>
         <nav aria-label="Main navigation">
           {[
-            { to: '/', icon: LayoutDashboard, text: t('Overview'), end: true },
-            { to: '/customers', icon: Users, text: t('Customers') },
-            { to: '/deals', icon: Handshake, text: t('Deals') },
-            { to: '/assistant', icon: Sparkles, text: t('AI Assistant') },
+            { to: '/', icon: LayoutDashboard, text: t('nav.overview'), end: true },
+            { to: '/customers', icon: Users, text: t('nav.customers') },
+            { to: '/deals', icon: Handshake, text: t('nav.deals') },
+            { to: '/assistant', icon: Sparkles, text: t('nav.assistant') },
           ].map(({ to, icon: Icon, text, end }) => (
             <NavLink end={end} key={to} to={to} onClick={() => setMobileOpen(false)}>
               <Icon size={19} />
@@ -70,24 +70,24 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <span>
               <Sparkles size={19} />
             </span>
-            <h3>{t('Your data, a clearer story.')}</h3>
-            <p>{t('Ask your assistant about deals, opportunities, and what comes next.')}</p>
+            <h3>{t('layout.dataStory')}</h3>
+            <p>{t('layout.assistantHint')}</p>
             <Link to="/assistant" onClick={() => setMobileOpen(false)}>
-              {t('Explore assistant')} <ArrowUpRight size={15} />
+              {t('layout.exploreAssistant')} <ArrowUpRight size={15} />
             </Link>
           </div>
           <Link className="help-link" to="/assistant">
-            <CircleHelp size={17} /> {t('Explore your CRM')} <ArrowUpRight size={13} />
+            <CircleHelp size={17} /> {t('layout.exploreCrm')} <ArrowUpRight size={13} />
           </Link>
           <div className="user-row">
             <span className="avatar">{initials}</span>
             <div>
               <strong>{user.name}</strong>
-              <small>{t('Sales representative')}</small>
+              <small>{t('layout.salesRepresentative')}</small>
             </div>
             <button
-              aria-label={t('Sign out')}
-              title={t('Sign out')}
+              aria-label={t('layout.signOut')}
+              title={t('layout.signOut')}
               disabled={logout.isPending}
               onClick={() => logout.mutate()}
             >
@@ -120,18 +120,18 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <button className="preference-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Light mode' : 'Dark mode'}>
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
-            <button type="button" className="locale-toggle" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? 'عربي' : 'EN'}</button>
+            <button type="button" className="locale-toggle" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
             <span className="live-dot" />
-            {t('Private workspace')}<span className="topbar-avatar">{initials}</span>
+            {t('layout.privateWorkspace')}<span className="topbar-avatar">{initials}</span>
           </div>
         </header>
         <main className="main-content">
           <Outlet />
         </main>
         <footer className="workspace-footer">
-          <span>{t('Made for meaningful connections.')}</span>
+          <span>{t('layout.footer')}</span>
           <span>
-            <ShieldCheck size={13} /> {t('Your workspace. Your data.')}
+            <ShieldCheck size={13} /> {t('layout.privacy')}
           </span>
         </footer>
       </div>
