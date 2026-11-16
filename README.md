@@ -87,14 +87,14 @@ More: [customer details](docs/images/customer.png), [assistant](docs/images/assi
 ## Architecture
 
 ```mermaid
-flowchart LR
-    A[App: session gate] --> B[Workspace routes and layout]
-    B --> C[Feature pages]
-    C --> D[Feature query and mutation hooks]
-    D --> E[Shared Axios client]
-    E -->|Session cookie + CSRF| F[Laravel API]
-    F --> G[(PostgreSQL)]
-    F --> H[Gemini or OpenAI]
+graph LR
+    A["App: session gate"] --> B["Workspace routes and layout"]
+    B --> C["Feature pages"]
+    C --> D["Feature query and mutation hooks"]
+    D --> E["Shared Axios client"]
+    E -->|"Session cookie and CSRF"| F["Laravel API"]
+    F --> G[("PostgreSQL")]
+    F --> H["Gemini or OpenAI"]
 ```
 
 The code follows a **feature-based structure**. Pages render a feature, hooks own its remote state, shared components render reusable UI, and the layout handles navigation. `App.tsx` only decides whether to show login or the authenticated workspace.
