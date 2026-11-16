@@ -17,7 +17,7 @@ Query cancellation now reaches Axios. Chat retry state lives in one hook, and th
 
 ## Branches and commits
 
-Work is grouped on `refactor/feature-modules` and `docs/developer-readme`. The code branch contains separate commits for module extraction, query/session hooks, and regression tests. Integration uses `git merge --no-ff`, preserving these branches and merge points instead of rewriting published history.
+Earlier extraction work is grouped on `refactor/feature-modules` and `docs/developer-readme`. Shared UI/style extraction is on `refactor/shared-ui-and-styles`. Branch references are retained; integration includes fast-forward updates as well as earlier merge commits. Inspect the actual graph with `git log --graph --oneline --decorate --all`; published history is not rewritten.
 
 ## Verification
 
