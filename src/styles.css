@@ -40,6 +40,7 @@ html[data-theme='dark'] .main-content {
 html[data-theme='dark'] .sidebar,
 html[data-theme='dark'] .topbar,
 html[data-theme='dark'] .workspace-switch,
+html[data-theme='dark'] .insight-strip,
 html[data-theme='dark'] .panel,
 html[data-theme='dark'] .card,
 html[data-theme='dark'] .stat-card,
@@ -53,6 +54,46 @@ html[data-theme='dark'] .login-form {
   color: #e4ece8;
   border-color: #293a34;
 }
+html[data-theme='dark'] .insight-strip {
+  background: #1c3026;
+  border-color: #30483a;
+}
+html[data-theme='dark'] .insight-strip strong,
+html[data-theme='dark'] .insight-strip > a,
+html[data-theme='dark'] .insight-strip p > span {
+  color: #c3d6c8;
+}
+html[data-theme='dark'] .assistant-panel,
+html[data-theme='dark'] .conversation,
+html[data-theme='dark'] .composer-area {
+  background-color: #18231f;
+  color: #e4ece8;
+}
+html[data-theme='dark'] .assistant-welcome h2,
+html[data-theme='dark'] .assistant-welcome > p,
+html[data-theme='dark'] .assistant-welcome > .eyebrow {
+  color: #c1d3c5;
+}
+html[data-theme='dark'] .suggestion-grid button {
+  background: #1d2c25;
+  border-color: #34483b;
+  color: #bdcfbf;
+}
+html[data-theme='dark'] .suggestion-grid button:hover {
+  background: #273a2f;
+}
+html[data-theme='dark'] .suggestion-grid button > strong,
+html[data-theme='dark'] .suggestion-grid button > span {
+  color: #c2d3c0;
+}
+html[data-theme='dark'] .chat-composer {
+  background: #121b18;
+  border-color: #3a4c44;
+}
+html[data-theme='dark'] .composer-area > p,
+html[data-theme='dark'] .chat-composer textarea::placeholder {
+  color: #a9bbb0;
+}
 html[data-theme='dark'] input,
 html[data-theme='dark'] select,
 html[data-theme='dark'] textarea {
@@ -60,13 +101,26 @@ html[data-theme='dark'] textarea {
   color: #e4ece8;
   border-color: #3a4c44;
 }
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder {
+  color: #95aaa0;
+}
+html[data-theme='dark'] option {
+  background: #18231f;
+  color: #e4ece8;
+}
 html[data-theme='dark'] th,
+html[data-theme='dark'] td,
 html[data-theme='dark'] .table-row,
 html[data-theme='dark'] .workspace-footer,
 html[data-theme='dark'] .breadcrumb,
 html[data-theme='dark'] .sidebar nav > a {
   color: #b7c5be;
   border-color: #293a34;
+}
+html[data-theme='dark'] th {
+  background: #202d27;
+  color: #c3d0c8;
 }
 html[data-theme='dark'] .sidebar nav > a:hover,
 html[data-theme='dark'] .sidebar nav > a.active {
@@ -401,7 +455,7 @@ html[dir='rtl'] .workspace-footer {
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 12px;
   font-size: 10px;
   color: #929e96;
 }

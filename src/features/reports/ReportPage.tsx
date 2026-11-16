@@ -15,7 +15,7 @@ import {
   Target,
   TrendingUp,
 } from 'lucide-react';
-import { compactMoney, dateLabel, money, titleCase } from '../../lib/format';
+import { compactMoney, money, titleCase } from '../../lib/format';
 
 import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../../components';
 
@@ -33,12 +33,6 @@ export function ReportPage() {
         eyebrow="THE BIG PICTURE"
         title="Sales overview"
         description="Your relationships, your pipeline, your next opportunity."
-        action={
-          <span className="date-chip">
-            <CalendarDays size={16} />
-            {dateLabel(report.as_of)}
-          </span>
-        }
       />
       <section className="overview-banner">
         <div>
@@ -249,10 +243,6 @@ export function ReportPage() {
         title="The story behind your numbers"
         description="Get a grounded summary of performance, risks, and opportunities."
       />
-      <p className="report-disclaimer">
-        Current snapshot · USD · {report.timezone} · No historical trend is inferred from this
-        snapshot.
-      </p>
     </>
   );
 }
