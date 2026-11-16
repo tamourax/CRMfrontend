@@ -53,6 +53,7 @@ Vitest/Testing Library/MSW cover page integration, authentication, filters, stat
 - [Recorded real-data walkthrough](docs/demo.webm)
 - [Customer screenshot](docs/images/customer.png)
 - [Assistant screenshot](docs/images/assistant.png)
+- [Mobile screenshot](docs/images/mobile.png)
 - Re-record using `npm run demo` while both local servers are running and no provider key is configured. The script deliberately records the missing-key state and uses only fictional seeds.
 
 The video is a short automated walkthrough without narration; the backend `docs/DEMO.md` contains a longer technical presentation script. Screenshots/recording are snapshots, so their seeded dates may differ from a later re-seed.
