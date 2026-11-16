@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, it } from 'vitest';
 import { App } from '../App';
-import { server, page } from './server';
+import { server, page, result } from './server';
 
 function mount(path = '/') {
   const client = new QueryClient({
@@ -152,6 +152,50 @@ describe('workspace integration', () => {
       'href',
       '/deals/1',
     );
+  });
+
+  it('reads deal filters from the router URL on initial navigation', async () => {
+    let requested: URLSearchParams | undefined;
+    server.use(
+      http.get('http://localhost:8000/api/deals', ({ request }) => {
+        requested = new URL(request.url).searchParams;
+        return HttpResponse.json(page([]));
+      }),
+    );
+    mount('/deals?stage=negotiation&closing=this_month&customer_id=1');
+    await screen.findByText('No deals found');
+    expect(requested?.get('stage')).toBe('negotiation');
+    expect(requested?.get('closing')).toBe('this_month');
+    expect(requested?.get('customer_id')).toBe('1');
+  });
+
+  it('prefills an assistant question from the router URL', async () => {
+    mount('/assistant?question=Show%20details%20for%20deal%201');
+    expect(await screen.findByLabelText('Ask about your deals')).toHaveValue(
+      'Show details for deal 1',
+    );
+  });
+
+  it('retries a failed chat message without duplicating the user question', async () => {
+    let attempts = 0;
+    server.use(
+      http.post('http://localhost:8000/api/assistant/messages', () => {
+        attempts++;
+        return attempts === 1
+          ? HttpResponse.json({ message: 'Provider temporarily unavailable.' }, { status: 503 })
+          : HttpResponse.json({ data: result });
+      }),
+    );
+    mount('/assistant');
+    const actor = userEvent.setup();
+    const question = 'What is the negotiation value?';
+    await actor.type(await screen.findByLabelText('Ask about your deals'), question);
+    await actor.click(screen.getByRole('button', { name: 'Send question' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('Provider temporarily unavailable.');
+    await actor.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(await screen.findByRole('heading', { name: 'Negotiation overview' })).toBeVisible();
+    expect(screen.getAllByText(question)).toHaveLength(1);
+    expect(attempts).toBe(2);
   });
 
   it('displays loading state while waiting for customer records', async () => {
