@@ -1,6 +1,8 @@
+import { useSearchParams } from 'react-router-dom';
+import { useDealAssistant } from './useDealAssistant';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+
 import {
   ArrowUp,
   ArrowUpRight,
@@ -12,8 +14,7 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react';
-import { api, errorMessage } from '../../lib/api';
-import type { AiResult } from '../../types';
+
 import { AiContent, PageHeader } from '../../components';
 
 const suggestions = [
@@ -43,43 +44,13 @@ const suggestions = [
     label: 'Learn from lost opportunities',
   },
 ];
-interface Message {
-  id: number;
-  question: string;
-  result?: AiResult;
-  error?: string;
-}
 
 export function AssistantPage() {
-  const [question, setQuestion] = useState(
-    new URLSearchParams(window.location.search).get('question') || '',
-  );
-  const [messages, setMessages] = useState<Message[]>([]);
-  const status = useQuery({
-    queryKey: ['status'],
-    queryFn: async () =>
-      (await api.get<{ data: { ai_configured: boolean } }>('/api/status')).data.data,
-  });
-  const mutation = useMutation({
-    mutationFn: async ({ question: text }: { question: string; id: number }) =>
-      (await api.post<{ data: AiResult }>('/api/assistant/messages', { question: text })).data.data,
-    onSuccess: (result, variables) =>
-      setMessages((previous) =>
-        previous.map((message) => (message.id === variables.id ? { ...message, result } : message)),
-      ),
-    onError: (error, variables) =>
-      setMessages((previous) =>
-        previous.map((message) =>
-          message.id === variables.id ? { ...message, error: errorMessage(error) } : message,
-        ),
-      ),
-  });
+  const [params] = useSearchParams();
+  const [question, setQuestion] = useState(params.get('question') || '');
+  const { messages, status, isPending, send: sendQuestion, retry } = useDealAssistant();
   function send(text: string) {
-    if (!text.trim() || mutation.isPending) return;
-    const id = Date.now();
-    setMessages((previous) => [...previous, { id, question: text.trim() }]);
-    setQuestion('');
-    mutation.mutate({ id, question: text.trim() });
+    if (sendQuestion(text)) setQuestion('');
   }
   function submit(event: FormEvent) {
     event.preventDefault();
@@ -155,15 +126,8 @@ export function AssistantPage() {
                         {message.error}
                         <button
                           className="text-link"
-                          onClick={() => {
-                            setMessages((previous) =>
-                              previous.map((item) =>
-                                item.id === message.id ? { ...item, error: undefined } : item,
-                              ),
-                            );
-                            mutation.mutate({ id: message.id, question: message.question });
-                          }}
-                          disabled={mutation.isPending}
+                          onClick={() => retry(message)}
+                          disabled={isPending}
                         >
                           Try again
                         </button>
@@ -199,12 +163,8 @@ export function AssistantPage() {
                 }
               }}
             />
-            <button aria-label="Send question" disabled={!question.trim() || mutation.isPending}>
-              {mutation.isPending ? (
-                <LoaderCircle className="spin" size={19} />
-              ) : (
-                <ArrowUp size={21} />
-              )}
+            <button aria-label="Send question" disabled={!question.trim() || isPending}>
+              {isPending ? <LoaderCircle className="spin" size={19} /> : <ArrowUp size={21} />}
             </button>
           </form>
           <p>

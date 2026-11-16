@@ -1,30 +1,22 @@
+import { useSearchParams } from 'react-router-dom';
+import { useDeals } from './queries';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+
 import { CircleDollarSign, Search } from 'lucide-react';
-import { api, stages, titleCase } from '../../lib/api';
-import type { Deal, Page } from '../../types';
+import { stages } from '../../lib/constants';
+import { titleCase } from '../../lib/format';
+
 import { DealTable, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 
 export function DealsPage() {
-  const [stage, setStage] = useState(
-    new URLSearchParams(window.location.search).get('stage') || '',
-  );
+  const [params] = useSearchParams();
+  const [stage, setStage] = useState(params.get('stage') || '');
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('value_desc');
-  const customerId = new URLSearchParams(window.location.search).get('customer_id') || '';
-  const [closing, setClosing] = useState(
-    new URLSearchParams(window.location.search).get('closing') || '',
-  );
-  const query = useQuery({
-    queryKey: ['deals', stage, page, search, sort, customerId, closing],
-    queryFn: async () =>
-      (
-        await api.get<Page<Deal>>('/api/deals', {
-          params: { stage, page, search, sort, customer_id: customerId, closing },
-        })
-      ).data,
-  });
+  const customerId = params.get('customer_id') || '';
+  const [closing, setClosing] = useState(params.get('closing') || '');
+  const query = useDeals({ stage, page, search, sort, customer_id: customerId, closing });
   return (
     <>
       <PageHeader

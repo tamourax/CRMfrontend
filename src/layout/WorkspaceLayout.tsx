@@ -1,6 +1,7 @@
+import { useLogout } from '../features/auth/queries';
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import {
   ArrowUpRight,
   ChartNoAxesCombined,
@@ -15,24 +16,11 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react';
-import { api, errorMessage } from '../lib/api';
+import { errorMessage } from '../lib/api';
 import type { User } from '../types';
 
 export function WorkspaceLayout({ user }: { user: User }) {
-  const client = useQueryClient();
-  const navigate = useNavigate();
-  const logout = useMutation({
-    mutationFn: async () => {
-      await api.get('/sanctum/csrf-cookie');
-      return api.post('/logout');
-    },
-    onSuccess: async () => {
-      await client.cancelQueries();
-      client.removeQueries({ predicate: (query) => query.queryKey[0] !== 'user' });
-      client.setQueryData(['user'], null);
-      navigate('/login');
-    },
-  });
+  const logout = useLogout();
   const [mobileOpen, setMobileOpen] = useState(false);
   const initials = user.name
     .split(' ')

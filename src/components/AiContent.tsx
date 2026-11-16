@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { money, titleCase } from '../lib/api';
+import { money, titleCase } from '../lib/format';
 import type { AiResult } from '../types';
 
 export function AiContent({ result }: { result: AiResult }) {

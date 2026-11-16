@@ -1,24 +1,18 @@
+import { useLogin } from './queries';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useMutation } from '@tanstack/react-query';
+
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit, ShieldCheck } from 'lucide-react';
-import { api, errorMessage } from '../../lib/api';
-import type { User } from '../../types';
+import { errorMessage } from '../../lib/api';
 
-export function LoginPage({ onSuccess }: { onSuccess: (user: User) => void }) {
+export function LoginPage() {
   const [email, setEmail] = useState('alex@orbit.example');
   const [password, setPassword] = useState('');
-  const login = useMutation({
-    mutationFn: async () => {
-      await api.get('/sanctum/csrf-cookie');
-      return (await api.post<{ data: User }>('/login', { email, password })).data.data;
-    },
-    onSuccess,
-  });
+  const login = useLogin();
   function submit(event: FormEvent) {
     event.preventDefault();
-    login.mutate();
+    login.mutate({ email, password });
   }
   return (
     <main className="login-page">

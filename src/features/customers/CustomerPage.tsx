@@ -1,16 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
+import { useCustomer } from './queries';
+
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, Building2, Mail, Phone } from 'lucide-react';
-import { api } from '../../lib/api';
-import type { Customer } from '../../types';
+
 import { AiPanel, Badge, DealTable, ErrorState, Loading, PageHeader } from '../../components';
 
 export function CustomerPage() {
   const { id } = useParams();
-  const query = useQuery({
-    queryKey: ['customer', id],
-    queryFn: async () => (await api.get<{ data: Customer }>(`/api/customers/${id}`)).data.data,
-  });
+  const query = useCustomer(id);
   if (query.isPending) return <Loading />;
   if (query.isError) return <ErrorState error={query.error} retry={() => void query.refetch()} />;
   const customer = query.data;

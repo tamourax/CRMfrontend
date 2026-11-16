@@ -1,7 +1,5 @@
 import { LoaderCircle, Sparkles } from 'lucide-react';
-import { useMutation } from '@tanstack/react-query';
-import { api } from '../lib/api';
-import type { AiResult } from '../types';
+import { useAiSummary } from '../hooks/useAiSummary';
 import { ErrorState } from './Feedback';
 import { AiContent } from './AiContent';
 
@@ -14,9 +12,7 @@ export function AiPanel({
   title: string;
   description: string;
 }) {
-  const mutation = useMutation({
-    mutationFn: async () => (await api.post<{ data: AiResult }>(endpoint)).data.data,
-  });
+  const mutation = useAiSummary(endpoint);
   return (
     <section className="panel ai-panel">
       <div className="panel-heading">

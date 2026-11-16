@@ -1,4 +1,6 @@
-export type Stage = 'lead' | 'qualified' | 'proposal' | 'negotiation' | 'won' | 'lost';
+import type { stages } from './lib/constants';
+
+export type Stage = (typeof stages)[number];
 export interface User {
   id: number;
   name: string;

@@ -1,16 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
+import { useDeal } from './queries';
+
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, Building2, CalendarDays, CircleDollarSign } from 'lucide-react';
-import { api, dateLabel, money } from '../../lib/api';
-import type { Deal } from '../../types';
+import { dateLabel, money } from '../../lib/format';
+
 import { Badge, ErrorState, Loading, PageHeader } from '../../components';
 
 export function DealPage() {
   const { id } = useParams();
-  const query = useQuery({
-    queryKey: ['deal', id],
-    queryFn: async () => (await api.get<{ data: Deal }>(`/api/deals/${id}`)).data.data,
-  });
+  const query = useDeal(id);
   if (query.isPending) return <Loading />;
   if (query.isError) return <ErrorState error={query.error} retry={() => void query.refetch()} />;
   const deal = query.data;

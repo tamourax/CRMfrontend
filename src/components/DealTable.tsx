@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { dateLabel, money } from '../lib/api';
+import { dateLabel, money } from '../lib/format';
 import type { Deal } from '../types';
 import { Badge } from './Badge';
 import { Empty } from './Feedback';

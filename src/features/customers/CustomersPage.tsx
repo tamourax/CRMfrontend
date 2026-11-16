@@ -1,20 +1,17 @@
+import { useCustomers } from './queries';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search, SlidersHorizontal, Users } from 'lucide-react';
-import { api, titleCase } from '../../lib/api';
-import type { Customer, Page } from '../../types';
+import { titleCase } from '../../lib/format';
+
 import { Badge, Empty, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 
 export function CustomersPage() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
   const [page, setPage] = useState(1);
-  const query = useQuery({
-    queryKey: ['customers', search, status, page],
-    queryFn: async () =>
-      (await api.get<Page<Customer>>('/api/customers', { params: { search, status, page } })).data,
-  });
+  const query = useCustomers({ search, status, page });
   return (
     <>
       <PageHeader
