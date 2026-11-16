@@ -13,9 +13,9 @@ import {
   Target,
   TrendingUp,
 } from 'lucide-react';
-import { api, compactMoney, dateLabel, money, titleCase } from '../lib/api';
-import type { Deal, Page, SalesReport } from '../types';
-import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../components/ui';
+import { api, compactMoney, dateLabel, money, titleCase } from '../../lib/api';
+import type { Deal, Page, SalesReport } from '../../types';
+import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../../components';
 
 export function ReportPage() {
   const query = useQuery({

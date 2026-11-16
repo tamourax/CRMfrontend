@@ -12,9 +12,9 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react';
-import { api, errorMessage } from '../lib/api';
-import type { AiResult } from '../types';
-import { AiContent, PageHeader } from '../components/ui';
+import { api, errorMessage } from '../../lib/api';
+import type { AiResult } from '../../types';
+import { AiContent, PageHeader } from '../../components';
 
 const suggestions = [
   {
