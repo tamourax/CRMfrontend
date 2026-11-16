@@ -8,21 +8,36 @@ import { App } from '../App';
 import { server, page } from './server';
 
 function mount(path = '/') {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
-  return render(<QueryClientProvider client={client}><MemoryRouter initialEntries={[path]}><App/></MemoryRouter></QueryClientProvider>);
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  });
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter initialEntries={[path]}>
+        <App />
+      </MemoryRouter>
+    </QueryClientProvider>,
+  );
 }
 
 describe('workspace integration', () => {
   it('renders authoritative sales statistics and deal links', async () => {
     mount();
     expect(await screen.findByRole('heading', { name: 'Sales overview' })).toBeVisible();
-    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute('href', '/deals/1');
+    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+      'href',
+      '/deals/1',
+    );
     expect(screen.getAllByText('$12,500.25').length).toBeGreaterThan(0);
     expect(screen.getByText(/No historical trend/)).toBeVisible();
   });
 
   it('signs in after retrieving a CSRF cookie', async () => {
-    server.use(http.get('http://localhost:8000/api/user', () => HttpResponse.json({ message: 'Unauthenticated.' }, { status: 401 })));
+    server.use(
+      http.get('http://localhost:8000/api/user', () =>
+        HttpResponse.json({ message: 'Unauthenticated.' }, { status: 401 }),
+      ),
+    );
     mount();
     const actor = userEvent.setup();
     await actor.type(await screen.findByLabelText('Password'), 'OrbitDemo!2026');
@@ -31,7 +46,15 @@ describe('workspace integration', () => {
   });
 
   it('handles login failures without entering the workspace', async () => {
-    server.use(http.get('http://localhost:8000/api/user', () => HttpResponse.json({}, { status: 401 })), http.post('http://localhost:8000/login', () => HttpResponse.json({ message: 'These credentials do not match our records.' }, { status: 422 })));
+    server.use(
+      http.get('http://localhost:8000/api/user', () => HttpResponse.json({}, { status: 401 })),
+      http.post('http://localhost:8000/login', () =>
+        HttpResponse.json(
+          { message: 'These credentials do not match our records.' },
+          { status: 422 },
+        ),
+      ),
+    );
     mount();
     const actor = userEvent.setup();
     await actor.type(await screen.findByLabelText('Password'), 'wrong');
@@ -41,7 +64,11 @@ describe('workspace integration', () => {
   });
 
   it('shows a retryable API error instead of pretending the user is signed out', async () => {
-    server.use(http.get('http://localhost:8000/api/user', () => HttpResponse.json({ message: 'Service temporarily unavailable.' }, { status: 503 })));
+    server.use(
+      http.get('http://localhost:8000/api/user', () =>
+        HttpResponse.json({ message: 'Service temporarily unavailable.' }, { status: 503 }),
+      ),
+    );
     mount();
     expect(await screen.findByRole('alert')).toHaveTextContent('Service temporarily unavailable');
     expect(screen.getByRole('button', { name: 'Try again' })).toBeVisible();
@@ -52,7 +79,10 @@ describe('workspace integration', () => {
     const actor = userEvent.setup();
     await actor.click(await screen.findByRole('link', { name: 'Atlas Industries' }));
     expect(await screen.findByRole('heading', { name: 'Atlas Industries' })).toBeVisible();
-    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute('href', '/deals/1');
+    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+      'href',
+      '/deals/1',
+    );
     expect(screen.getByText('Security review pending.')).toBeVisible();
   });
 
@@ -73,7 +103,12 @@ describe('workspace integration', () => {
 
   it('sends the selected deal stage to the API', async () => {
     let selectedStage: string | null = null;
-    server.use(http.get('http://localhost:8000/api/deals', ({ request }) => { selectedStage = new URL(request.url).searchParams.get('stage'); return HttpResponse.json(page([])); }));
+    server.use(
+      http.get('http://localhost:8000/api/deals', ({ request }) => {
+        selectedStage = new URL(request.url).searchParams.get('stage');
+        return HttpResponse.json(page([]));
+      }),
+    );
     mount('/deals');
     const actor = userEvent.setup();
     await actor.click(await screen.findByRole('button', { name: 'Negotiation' }));
@@ -91,7 +126,11 @@ describe('workspace integration', () => {
   });
 
   it('shows missing AI configuration honestly without a fabricated summary', async () => {
-    server.use(http.post('http://localhost:8000/api/customers/1/ai-summary', () => HttpResponse.json({ message: 'AI is not configured.' }, { status: 503 })));
+    server.use(
+      http.post('http://localhost:8000/api/customers/1/ai-summary', () =>
+        HttpResponse.json({ message: 'AI is not configured.' }, { status: 503 }),
+      ),
+    );
     mount('/customers/1');
     const actor = userEvent.setup();
     await actor.click(await screen.findByRole('button', { name: 'Generate summary' }));
@@ -102,16 +141,29 @@ describe('workspace integration', () => {
   it('submits a chat question and displays a grounded answer', async () => {
     mount('/assistant');
     const actor = userEvent.setup();
-    await actor.type(await screen.findByLabelText('Ask about your deals'), 'What is the negotiation value?');
+    await actor.type(
+      await screen.findByLabelText('Ask about your deals'),
+      'What is the negotiation value?',
+    );
     await actor.click(screen.getByRole('button', { name: 'Send question' }));
     expect(await screen.findByText('What is the negotiation value?')).toBeVisible();
     expect(await screen.findByRole('heading', { name: 'Negotiation overview' })).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Platform rollout' })).toHaveAttribute('href', '/deals/1');
+    expect(screen.getByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+      'href',
+      '/deals/1',
+    );
   });
 
   it('displays loading state while waiting for customer records', async () => {
     let release: () => void = () => {};
-    server.use(http.get('http://localhost:8000/api/customers', async () => { await new Promise<void>(resolve => { release = resolve; }); return HttpResponse.json(page([])); }));
+    server.use(
+      http.get('http://localhost:8000/api/customers', async () => {
+        await new Promise<void>((resolve) => {
+          release = resolve;
+        });
+        return HttpResponse.json(page([]));
+      }),
+    );
     mount('/customers');
     await screen.findByRole('heading', { name: 'Customers' });
     expect(screen.getByRole('status')).toHaveTextContent('Loading your workspace');

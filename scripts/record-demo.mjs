@@ -1,9 +1,12 @@
 import { chromium } from '@playwright/test';
-import { mkdir, rename } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 
 await mkdir('docs/demo-capture', { recursive: true });
 const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, recordVideo: { dir: 'docs/demo-capture', size: { width: 1440, height: 900 } } });
+const context = await browser.newContext({
+  viewport: { width: 1440, height: 900 },
+  recordVideo: { dir: 'docs/demo-capture', size: { width: 1440, height: 900 } },
+});
 const page = await context.newPage();
 const pause = () => page.waitForTimeout(1400);
 await page.goto('http://localhost:5173');
@@ -53,4 +56,6 @@ const video = page.video();
 await context.close();
 await video.saveAs('docs/demo.webm');
 await browser.close();
-console.log('Saved docs/demo.webm and screenshots. Recording honestly shows missing AI configuration.');
+console.log(
+  'Saved docs/demo.webm and screenshots. Recording honestly shows missing AI configuration.',
+);
