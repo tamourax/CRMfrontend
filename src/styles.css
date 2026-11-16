@@ -240,6 +240,14 @@ html[dir='rtl'] .breadcrumb,
 html[dir='rtl'] .workspace-footer {
   direction: rtl;
 }
+html[dir='rtl'] input,
+html[dir='rtl'] select,
+html[dir='rtl'] textarea {
+  text-align: right;
+}
+html[dir='rtl'] table {
+  text-align: right;
+}
 .locale-toggle {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -468,7 +476,7 @@ html[dir='rtl'] .workspace-footer {
   background: #7da582;
 }
 .topbar-avatar {
-  margin-left: 19px;
+  margin-inline-start: 19px;
   width: 29px;
   height: 29px;
   font-size: 9px;
@@ -1683,7 +1691,7 @@ select {
 .login-page {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   background: #fff;
 }
 .login-story {
@@ -2039,16 +2047,16 @@ select {
     padding: 5px;
   }
   .breadcrumb {
-    margin-right: auto;
+    margin-inline-end: auto;
     gap: 9px;
     font-size: 10px;
   }
   .topbar-right {
     font-size: 0;
-    gap: 0;
+    gap: 10px;
   }
   .topbar-avatar {
-    margin-left: 12px;
+    margin-inline-start: 4px;
   }
   .main-content {
     padding: 25px 17px 15px;
@@ -2175,12 +2183,15 @@ select {
     padding: 13px 16px;
   }
   .login-page {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 140px minmax(0, 1fr);
+    min-height: 100dvh;
   }
   .login-story {
-    min-height: 150px;
-    padding: 24px;
+    height: 140px;
+    min-height: 140px;
+    padding: 20px 24px;
   }
   .login-story > div {
     margin: 24px 0 0;
@@ -2203,8 +2214,9 @@ select {
     font-size: 27px;
   }
   .login-form-side {
-    padding: 35px 25px 65px;
-    flex: 1;
+    min-height: calc(100dvh - 140px);
+    padding: 28px 25px;
+    justify-content: flex-start;
   }
   .login-form h2 {
     font-size: 26px;
