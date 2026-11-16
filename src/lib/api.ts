@@ -8,6 +8,11 @@ export const api = axios.create({
   headers: { Accept: 'application/json' },
 });
 
+api.interceptors.request.use((request) => {
+  request.headers.set('Accept-Language', localStorage.getItem('orbit-locale') === 'ar' ? 'ar' : 'en');
+  return request;
+});
+
 export function errorMessage(error: unknown): string {
   if (axios.isAxiosError(error)) {
     if (error.response?.status === 419)

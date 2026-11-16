@@ -5,11 +5,14 @@ import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit, ShieldCheck } from 'lucide-react';
 import { errorMessage } from '../../lib/api';
+import { useLocale, useT } from '../../preferences/LocaleProvider';
 
 export function LoginPage() {
   const [email, setEmail] = useState('alex@orbit.example');
   const [password, setPassword] = useState('');
   const login = useLogin();
+  const { locale, setLocale } = useLocale();
+  const t = useT();
   function submit(event: FormEvent) {
     event.preventDefault();
     login.mutate({ email, password });
@@ -49,14 +52,15 @@ export function LoginPage() {
         <span className="login-caption">A thoughtful workspace for moving business forward.</span>
       </section>
       <section className="login-form-side">
+        <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? 'عربي' : 'EN'}</button>
         <div className="login-form">
           <span className="welcome-icon">
             <Building2 size={23} />
           </span>
-          <h2>Welcome back</h2>
-          <p>Sign in to your sales workspace.</p>
+          <h2>{t('Welcome back')}</h2>
+          <p>{t('Sign in to your sales workspace.')}</p>
           <form onSubmit={submit}>
-            <label htmlFor="email">Work email</label>
+            <label htmlFor="email">{t('Work email')}</label>
             <input
               id="email"
               type="email"
@@ -65,7 +69,7 @@ export function LoginPage() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('Password')}</label>
             <input
               id="password"
               type="password"
@@ -73,7 +77,7 @@ export function LoginPage() {
               required
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter your password"
+              placeholder={t('Enter your password')}
             />
             {login.isError && (
               <p className="inline-error" role="alert">
@@ -85,7 +89,7 @@ export function LoginPage() {
                 <LoaderCircle size={17} className="spin" />
               ) : (
                 <>
-                  Sign in <ArrowRight size={17} />
+                  {t('Sign in')} <ArrowRight size={17} />
                 </>
               )}
             </button>
@@ -93,9 +97,9 @@ export function LoginPage() {
           <div className="demo-hint">
             <ShieldCheck size={18} />
             <p>
-              Demo workspace
+              {t('Demo workspace')}
               <br />
-              <span>Use the seeded account and password from the README.</span>
+              <span>{t('Use the seeded account and password from the README.')}</span>
             </p>
           </div>
         </div>

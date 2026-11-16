@@ -96,6 +96,36 @@ svg {
 .muted {
   color: var(--muted);
 }
+html[dir='rtl'] body {
+  font-family: 'DM Sans Variable', Tahoma, Arial, sans-serif;
+}
+html[dir='rtl'] .sidebar {
+  inset: 0 0 0 auto;
+  border-right: 0;
+  border-left: 1px solid var(--line);
+}
+html[dir='rtl'] .workspace-main {
+  margin-left: 0;
+  margin-right: 248px;
+}
+html[dir='rtl'] .workspace-switch > svg {
+  margin-left: 0;
+  margin-right: auto;
+  transform: rotate(180deg);
+}
+html[dir='rtl'] .topbar-right,
+html[dir='rtl'] .breadcrumb,
+html[dir='rtl'] .workspace-footer {
+  direction: rtl;
+}
+.locale-toggle {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  padding: 7px 10px;
+  font-size: 12px;
+}
 .numeric {
   font-variant-numeric: tabular-nums;
   font-weight: 550;
