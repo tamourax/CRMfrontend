@@ -1,12 +1,11 @@
+import { Panel, DealTable, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 import { useSearchParams } from 'react-router-dom';
-import { useDeals } from './queries';
+import { useDeals } from './dealQueries';
 import { useState } from 'react';
 
 import { CircleDollarSign, Search } from 'lucide-react';
 import { stages } from '../../lib/constants';
 import { titleCase } from '../../lib/format';
-
-import { DealTable, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 
 export function DealsPage() {
   const [params] = useSearchParams();
@@ -30,7 +29,7 @@ export function DealsPage() {
           </span>
         }
       />
-      <section className="panel">
+      <Panel>
         <div className="stage-tabs" role="group" aria-label="Filter by stage">
           {['', 'open', ...stages].map((value) => (
             <button
@@ -96,7 +95,7 @@ export function DealsPage() {
             <Pagination meta={query.data.meta} onChange={setPage} />
           </>
         )}
-      </section>
+      </Panel>
     </>
   );
 }

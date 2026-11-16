@@ -1,9 +1,19 @@
-import { useCustomer } from './queries';
+import {
+  OverviewCover,
+  Panel,
+  PanelHeading,
+  AiPanel,
+  Badge,
+  DealTable,
+  ErrorState,
+  Loading,
+  PageHeader,
+} from '../../components';
+import { useCustomer } from './customerQueries';
 
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, Building2, Mail, Phone } from 'lucide-react';
 
-import { AiPanel, Badge, DealTable, ErrorState, Loading, PageHeader } from '../../components';
 import { useT } from '../../preferences/LocaleProvider';
 
 export function CustomerPage() {
@@ -25,21 +35,27 @@ export function CustomerPage() {
         description={`Your relationship with ${customer.name}.`}
         action={<Badge value={customer.status} label={customer.status_label} />}
       />
-      <section className="customer-cover" aria-label={t('customers.overview')}>
-        <img src="/images/cairo-business-district.svg" alt="Illustration of the Nile and Cairo business district" />
-        <div className="customer-cover-shade" />
-        <div className="customer-cover-copy">
-          <span className="eyebrow">{t('customers.overview')}</span>
-          <h2>{customer.name}</h2>
-          <p>{customer.industry} · {customer.city || t('common.egypt')} · {t('customers.associatedDealsCount').replace('{count}', String(customer.deals_count ?? customer.deals?.length ?? 0))}</p>
-        </div>
-      </section>
+      <OverviewCover
+        variant="customer"
+        label={t('customers.overview')}
+        title={customer.name}
+        imageAlt="Illustration of the Nile and Cairo business district"
+        description={
+          <>
+            {customer.industry} · {customer.city || t('common.egypt')} ·{' '}
+            {t('customers.associatedDealsCount').replace(
+              '{count}',
+              String(customer.deals_count ?? customer.deals?.length ?? 0),
+            )}
+          </>
+        }
+      />
       <div className="detail-grid">
-        <section className="panel">
-          <div className="panel-heading">
+        <Panel>
+          <PanelHeading>
             <h2>Contact & company</h2>
             <Building2 size={18} />
-          </div>
+          </PanelHeading>
           <dl className="detail-list">
             <div>
               <dt>Contact name</dt>
@@ -61,20 +77,23 @@ export function CustomerPage() {
             </div>
             <div>
               <dt>{t('customers.industryLocation')}</dt>
-              <dd>{customer.industry}{customer.city ? ` · ${customer.city}, ${t('common.egypt')}` : ''}</dd>
+              <dd>
+                {customer.industry}
+                {customer.city ? ` · ${customer.city}, ${t('common.egypt')}` : ''}
+              </dd>
             </div>
           </dl>
-        </section>
-        <section className="panel">
-          <div className="panel-heading">
+        </Panel>
+        <Panel>
+          <PanelHeading>
             <h2>Relationship notes</h2>
             <span className="tiny-label">INTERNAL</span>
-          </div>
+          </PanelHeading>
           <p className="notes-text">{customer.notes || 'No notes recorded for this customer.'}</p>
-        </section>
+        </Panel>
       </div>
-      <section className="panel">
-        <div className="panel-heading">
+      <Panel>
+        <PanelHeading>
           <div>
             <h2>Associated deals</h2>
             <p>{customer.deals?.length || 0} opportunities in this relationship</p>
@@ -82,9 +101,9 @@ export function CustomerPage() {
           <Link className="text-link" to={`/deals?customer_id=${id}`}>
             View in deals <ArrowUpRight size={15} />
           </Link>
-        </div>
+        </PanelHeading>
         <DealTable deals={customer.deals || []} showCustomer={false} />
-      </section>
+      </Panel>
       <AiPanel
         key={id}
         endpoint={`/api/customers/${id}/ai-summary`}

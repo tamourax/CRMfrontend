@@ -1,4 +1,5 @@
-import { useLogin } from './queries';
+import { Button } from '../../components';
+import { useLogin } from './authQueries';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
@@ -20,13 +21,17 @@ export function LoginPage() {
       <section className="login-story">
         <div className="brand">
           <Orbit size={28} />
-          <span>7B <span className="brand-dot">AHMED TAMER</span></span>
+          <span>
+            7B <span className="brand-dot">AHMED TAMER</span>
+          </span>
         </div>
         <div className="orbit-art" aria-hidden="true">
           <div />
           <div />
           <div />
-          <span><Handshake size={48} /></span>
+          <span>
+            <Handshake size={48} />
+          </span>
           <i />
           <b />
         </div>
@@ -63,7 +68,7 @@ export function LoginPage() {
                 {errorMessage(login.error)}
               </p>
             )}
-            <button className="button primary" disabled={login.isPending}>
+            <Button variant="primary" disabled={login.isPending}>
               {login.isPending ? (
                 <LoaderCircle size={17} className="spin" />
               ) : (
@@ -71,7 +76,7 @@ export function LoginPage() {
                   {t('auth.signIn')} <ArrowRight size={17} />
                 </>
               )}
-            </button>
+            </Button>
           </form>
         </div>
       </section>

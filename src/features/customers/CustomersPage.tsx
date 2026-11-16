@@ -1,11 +1,10 @@
-import { useCustomers } from './queries';
+import { Panel, Badge, Empty, ErrorState, Loading, PageHeader, Pagination } from '../../components';
+import { useCustomers } from './customerQueries';
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search, SlidersHorizontal, Users } from 'lucide-react';
 import { titleCase } from '../../lib/format';
-
-import { Badge, Empty, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 
 export function CustomersPage() {
   const [search, setSearch] = useState('');
@@ -25,7 +24,7 @@ export function CustomersPage() {
           </span>
         }
       />
-      <section className="panel">
+      <Panel>
         <div className="filterbar">
           <label className="search-input">
             <Search size={17} />
@@ -119,7 +118,7 @@ export function CustomersPage() {
             <Pagination meta={query.data.meta} onChange={setPage} />
           </>
         )}
-      </section>
+      </Panel>
     </>
   );
 }

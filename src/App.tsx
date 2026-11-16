@@ -3,7 +3,7 @@ import { isUnauthorized, sessionExpiredEvent } from './lib/api';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { LoginPage } from './features/auth/LoginPage';
-import { authKeys, useCurrentUser } from './features/auth/queries';
+import { authKeys, useCurrentUser } from './features/auth/authQueries';
 import { WorkspaceRoutes } from './routes/WorkspaceRoutes';
 
 export function App() {

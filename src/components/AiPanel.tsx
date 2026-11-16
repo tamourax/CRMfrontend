@@ -1,3 +1,6 @@
+import { PanelHeading, Panel } from './Panel';
+
+import { Button } from './Button';
 import { LoaderCircle, Sparkles } from 'lucide-react';
 import { useEffect } from 'react';
 import { useAiSummary } from '../hooks/useAiSummary';
@@ -21,8 +24,8 @@ export function AiPanel({
     reset();
   }, [endpoint, locale, reset]);
   return (
-    <section className="panel ai-panel">
-      <div className="panel-heading">
+    <Panel className="ai-panel">
+      <PanelHeading>
         <div className="ai-heading">
           <span className="ai-icon">
             <Sparkles size={20} />
@@ -32,21 +35,17 @@ export function AiPanel({
             <p>{description}</p>
           </div>
         </div>
-        <button
-          className="button primary"
-          disabled={mutation.isPending}
-          onClick={() => mutation.mutate()}
-        >
+        <Button variant="primary" disabled={mutation.isPending} onClick={() => mutation.mutate()}>
           {mutation.isPending ? (
             <LoaderCircle className="spin" size={16} />
           ) : (
             <Sparkles size={16} />
           )}{' '}
           {mutation.isPending ? 'Analyzing…' : mutation.data ? 'Regenerate' : 'Generate summary'}
-        </button>
-      </div>
+        </Button>
+      </PanelHeading>
       {mutation.isError && <ErrorState error={mutation.error} retry={() => mutation.mutate()} />}{' '}
       {mutation.data && <AiContent result={mutation.data} />}{' '}
-    </section>
+    </Panel>
   );
 }

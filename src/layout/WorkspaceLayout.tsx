@@ -1,4 +1,4 @@
-import { useLogout } from '../features/auth/queries';
+import { useLogout } from '../features/auth/authQueries';
 import { useState } from 'react';
 
 import { Link, NavLink, Outlet } from 'react-router-dom';
@@ -43,7 +43,8 @@ export function WorkspaceLayout({ user }: { user: User }) {
         <div className="workspace-switch">
           <span className="workspace-mark">O</span>
           <div>
-            {t('layout.salesWorkspace')}<small>{t('layout.personalWorkspace')}</small>
+            {t('layout.salesWorkspace')}
+            <small>{t('layout.personalWorkspace')}</small>
           </div>
           <ChevronRight size={14} />
         </div>
@@ -101,12 +102,26 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <strong>Sales</strong>
           </div>
           <div className="topbar-right">
-            <button className="preference-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Light mode' : 'Dark mode'}>
+            <button
+              className="preference-toggle"
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
-            <button type="button" className="locale-toggle" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
+            <button
+              type="button"
+              className="locale-toggle"
+              onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}
+            >
+              {locale === 'en' ? t('common.arabic') : 'EN'}
+            </button>
             <span className="live-dot" aria-label="Online" />
-            <span className="topbar-avatar" aria-label={user.name}>{initials}</span>
+            <span className="topbar-avatar" aria-label={user.name}>
+              {initials}
+            </span>
           </div>
         </header>
         <main className="main-content">

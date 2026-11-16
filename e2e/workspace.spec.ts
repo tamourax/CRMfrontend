@@ -24,7 +24,7 @@ test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logo
   const dealLink = page.locator('tbody a.strong-link').first();
   const dealTitle = await dealLink.textContent();
   await dealLink.click();
-  await expect(page.getByRole('heading', { name: dealTitle!, exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: dealTitle!, exact: true, level: 1 })).toBeVisible();
   await expect(page.getByRole('link', { name: 'NileBridge Technologies' })).toBeVisible();
   await page.getByRole('link', { name: 'Deals', exact: true }).click();
   await page.getByRole('button', { name: 'Negotiation', exact: true }).click();

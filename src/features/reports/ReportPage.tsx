@@ -1,5 +1,17 @@
-import { usePriorityDeals } from '../deals/queries';
-import { useSalesReport } from './queries';
+import {
+  ButtonLink,
+  StatCard,
+  Panel,
+  PanelHeading,
+  AiPanel,
+  DealTable,
+  Empty,
+  ErrorState,
+  Loading,
+  PageHeader,
+} from '../../components';
+import { usePriorityDeals } from '../deals/dealQueries';
+import { useSalesReport } from './reportQueries';
 
 import { Link } from 'react-router-dom';
 import {
@@ -16,8 +28,6 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { compactMoney, money, titleCase } from '../../lib/format';
-
-import { AiPanel, DealTable, Empty, ErrorState, Loading, PageHeader } from '../../components';
 
 export function ReportPage() {
   const query = useSalesReport();
@@ -47,11 +57,11 @@ export function ReportPage() {
             <strong>{money(report.pipeline_value)}</strong>.<br />
             Let’s turn promising conversations into lasting partnerships.
           </p>
-          <Link className="button light-button" to="/assistant">
+          <ButtonLink variant="light" to="/assistant">
             <Sparkles size={16} />
             Ask your assistant
             <ArrowUpRight size={16} />
-          </Link>
+          </ButtonLink>
         </div>
         <div className="banner-visual" aria-hidden="true">
           <div className="visual-orbit" />
@@ -88,51 +98,42 @@ export function ReportPage() {
             value: money(report.pipeline_value),
             note: `${report.open_count} active opportunities`,
             icon: CircleDollarSign,
-            tone: 'green',
+            tone: 'green' as const,
           },
           {
             label: 'Won deal value',
             value: money(report.won_value),
             note: `${report.won_count} deals closed won`,
             icon: Target,
-            tone: 'blue',
+            tone: 'blue' as const,
           },
           {
             label: 'Total deals',
             value: String(report.total_deals),
             note: `${decided ? Math.round((report.won_count / decided) * 100) : 0}% win rate among decided deals`,
             icon: Handshake,
-            tone: 'purple',
+            tone: 'purple' as const,
           },
           {
             label: 'Lost deals',
             value: String(report.lost_count),
             note: `${money(report.lost_value)} in deal value`,
             icon: ArrowDownRight,
-            tone: 'sand',
+            tone: 'sand' as const,
           },
         ].map((stat) => (
-          <section className="stat-card" key={stat.label}>
-            <div>
-              <span>{stat.label}</span>
-              <span className={`stat-icon ${stat.tone}`}>
-                <stat.icon size={18} />
-              </span>
-            </div>
-            <strong>{stat.value}</strong>
-            <small>{stat.note}</small>
-          </section>
+          <StatCard key={stat.label} {...stat} />
         ))}
       </div>
       <div className="report-grid">
-        <section className="panel">
-          <div className="panel-heading">
+        <Panel>
+          <PanelHeading>
             <div>
               <h2>Pipeline by stage</h2>
               <p>Where your opportunities stand today</p>
             </div>
             <span className="tiny-label">ALL DEALS</span>
-          </div>
+          </PanelHeading>
           <div className="stage-chart">
             {report.stages.map((stage) => (
               <div className="chart-row" key={stage.stage}>
@@ -155,9 +156,9 @@ export function ReportPage() {
           <div className="panel-footnote">
             Pipeline value includes Lead, Qualified, Proposal, and Negotiation.
           </div>
-        </section>
-        <section className="panel">
-          <div className="panel-heading">
+        </Panel>
+        <Panel>
+          <PanelHeading>
             <div>
               <h2>Top relationships</h2>
               <p>Customers by total deal value</p>
@@ -165,7 +166,7 @@ export function ReportPage() {
             <Link className="icon-link" aria-label="View all customers" to="/customers">
               <ArrowUpRight size={18} />
             </Link>
-          </div>
+          </PanelHeading>
           <div className="top-customers">
             {report.top_customers.length ? (
               report.top_customers.map((customer, index) => (
@@ -185,7 +186,7 @@ export function ReportPage() {
               <Empty title="No customer activity yet" />
             )}
           </div>
-        </section>
+        </Panel>
       </div>
       <div className="insight-strip">
         <div>
@@ -219,8 +220,8 @@ export function ReportPage() {
           </Link>
         </div>
       )}
-      <section className="panel">
-        <div className="panel-heading">
+      <Panel>
+        <PanelHeading>
           <div>
             <h2>High-value opportunities</h2>
             <p>Your five largest open deals</p>
@@ -229,7 +230,7 @@ export function ReportPage() {
             View all deals
             <ArrowRight size={15} />
           </Link>
-        </div>
+        </PanelHeading>
         {deals.isPending ? (
           <Loading />
         ) : deals.isError ? (
@@ -237,7 +238,7 @@ export function ReportPage() {
         ) : (
           <DealTable deals={deals.data.data} />
         )}
-      </section>
+      </Panel>
       <AiPanel
         endpoint="/api/reports/sales/ai-summary"
         title="The story behind your numbers"

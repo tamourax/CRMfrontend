@@ -1,0 +1,287 @@
+:root {
+  font-family: var(--font-body);
+  color: #24342f;
+  background: #f7f9f8;
+  font-synthesis: none;
+  font-weight: 400;
+  font-size: var(--text-base);
+  --green: #245e4f;
+  --dark: #153e34;
+  --line: #e8edea;
+  --muted: #7d8983;
+  --shadow: 0 3px 15px #1b3f2d03;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --line: #293a34;
+  --muted: #a1b0a9;
+  --shadow: 0 5px 22px #0005;
+  background: #111a17;
+  color: #e4ece8;
+}
+html[data-theme='dark'] body,
+html[data-theme='dark'] .workspace,
+html[data-theme='dark'] .workspace-main,
+html[data-theme='dark'] .main-content {
+  background: #111a17;
+  color: #e4ece8;
+}
+html[data-theme='dark'] .sidebar,
+html[data-theme='dark'] .topbar,
+html[data-theme='dark'] .workspace-switch,
+html[data-theme='dark'] .insight-strip,
+html[data-theme='dark'] .panel,
+html[data-theme='dark'] .card,
+html[data-theme='dark'] .stat-card,
+html[data-theme='dark'] .table-wrap,
+html[data-theme='dark'] .customer-card,
+html[data-theme='dark'] .deal-card,
+html[data-theme='dark'] .assistant-card,
+html[data-theme='dark'] .login-form-side,
+html[data-theme='dark'] .login-form {
+  background-color: #18231f;
+  color: #e4ece8;
+  border-color: #293a34;
+}
+html[data-theme='dark'] .insight-strip {
+  background: #1c3026;
+  border-color: #30483a;
+}
+html[data-theme='dark'] .insight-strip strong,
+html[data-theme='dark'] .insight-strip > a,
+html[data-theme='dark'] .insight-strip p > span {
+  color: #c3d6c8;
+}
+html[data-theme='dark'] .assistant-panel,
+html[data-theme='dark'] .conversation,
+html[data-theme='dark'] .composer-area {
+  background-color: #18231f;
+  color: #e4ece8;
+}
+html[data-theme='dark'] .assistant-welcome h2,
+html[data-theme='dark'] .assistant-welcome > p,
+html[data-theme='dark'] .assistant-welcome > .eyebrow {
+  color: #c1d3c5;
+}
+html[data-theme='dark'] .suggestion-grid button {
+  background: #1d2c25;
+  border-color: #34483b;
+  color: #bdcfbf;
+}
+html[data-theme='dark'] .suggestion-grid button:hover {
+  background: #273a2f;
+}
+html[data-theme='dark'] .suggestion-grid button > strong,
+html[data-theme='dark'] .suggestion-grid button > span {
+  color: #c2d3c0;
+}
+html[data-theme='dark'] .chat-composer {
+  background: #121b18;
+  border-color: #3a4c44;
+}
+html[data-theme='dark'] .composer-area > p,
+html[data-theme='dark'] .chat-composer textarea::placeholder {
+  color: #a9bbb0;
+}
+html[data-theme='dark'] input,
+html[data-theme='dark'] select,
+html[data-theme='dark'] textarea {
+  background-color: #121b18;
+  color: #e4ece8;
+  border-color: #3a4c44;
+}
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder {
+  color: #95aaa0;
+}
+html[data-theme='dark'] option {
+  background: #18231f;
+  color: #e4ece8;
+}
+html[data-theme='dark'] th,
+html[data-theme='dark'] td,
+html[data-theme='dark'] .table-row,
+html[data-theme='dark'] .workspace-footer,
+html[data-theme='dark'] .breadcrumb,
+html[data-theme='dark'] .sidebar nav > a {
+  color: #b7c5be;
+  border-color: #293a34;
+}
+html[data-theme='dark'] th {
+  background: #202d27;
+  color: #c3d0c8;
+}
+html[data-theme='dark'] .deal-highlights > .panel {
+  color: #b4c7bb;
+}
+html[data-theme='dark'] .deal-highlights span,
+html[data-theme='dark'] .deal-customer-link small {
+  color: #a1b0a9;
+}
+html[data-theme='dark'] .deal-highlights strong,
+html[data-theme='dark'] .deal-highlights a {
+  color: #d2e4d7;
+}
+html[data-theme='dark'] .sidebar nav > a:hover,
+html[data-theme='dark'] .sidebar nav > a.active {
+  background: #263a31;
+  color: #b5dfc2;
+}
+html[data-theme='dark'] .button.secondary,
+html[data-theme='dark'] .stage-tab,
+html[data-theme='dark'] .preference-toggle {
+  background: #24332d;
+  color: #e4ece8;
+  border-color: #3a4c44;
+}
+.preference-toggle {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  touch-action: manipulation;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  border: 0;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #90baa5;
+  outline-offset: 3px;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+}
+h1 {
+  font-size: 30px;
+  letter-spacing: -1.2px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+h2 {
+  font-size: var(--text-heading);
+  font-weight: 750;
+  letter-spacing: -0.35px;
+}
+h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+p {
+  line-height: 1.7;
+}
+svg {
+  flex-shrink: 0;
+}
+.muted {
+  color: var(--muted);
+}
+html[dir='rtl'] body {
+  font-family: var(--font-arabic);
+}
+html[dir='rtl'] .sidebar {
+  inset: 0 0 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 0;
+}
+html[dir='rtl'] .workspace-main {
+  margin-left: 0;
+  margin-right: 248px;
+}
+html[dir='rtl'] .workspace-switch > svg {
+  margin-left: 0;
+  margin-right: auto;
+  transform: rotate(180deg);
+}
+html[dir='rtl'] .topbar-right,
+html[dir='rtl'] .breadcrumb,
+html[dir='rtl'] .workspace-footer {
+  direction: rtl;
+}
+html[dir='rtl'] input,
+html[dir='rtl'] select,
+html[dir='rtl'] textarea {
+  text-align: right;
+}
+html[dir='rtl'] table {
+  text-align: right;
+}
+.locale-toggle {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  padding: 7px 10px;
+  font-size: var(--text-body);
+}
+.numeric {
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

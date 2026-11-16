@@ -110,6 +110,10 @@ See [architecture and dependency rules](docs/ARCHITECTURE.md) and [what changed 
 
 ## Project structure
 
+Shared UI components live in `src/components`: `Button` and `ButtonLink` support `primary`, `secondary`, and `light` variants; `Panel`/`PanelHeading`, `OverviewCover`, and `StatCard` preserve the existing HTML and CSS classes. Prefer these components when adding matching controls or cards. Feature queries have explicit names: `authQueries.ts`, `customerQueries.ts`, `dealQueries.ts`, and `reportQueries.ts`.
+
+`src/styles.css` is the stylesheet entry point. It imports `styles/tokens.css` (font families and text sizes), followed by foundation, layout, shared components, reports, tables, details, assistant, login, and responsive styles. Import order preserves the existing cascade. Use the `--font-*` and `--text-*` variables for matching typography; existing colors, spacing, themes, and breakpoints are preserved.
+
 ```text
 src/
 ├── App.tsx                    # Session gate

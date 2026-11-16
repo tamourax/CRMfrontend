@@ -2,6 +2,8 @@
 
 ## Before and after
 
+The shared UI refactor adds typed button variants, panels, overview covers, and statistic cards. Their rendered tags/classes match the existing pages. Font families and text sizes now come from `styles/tokens.css`; the former single stylesheet is split into ordered files while preserving CSS rule order and resolved values. Feature query modules now have domain-specific filenames instead of repeated `queries.ts` filenames.
+
 | Before | After | Benefit |
 |---|---|---|
 | `App.tsx` combined login, layout, routing, and session requests | Session gate, LoginPage, WorkspaceLayout, WorkspaceRoutes, auth hooks | Each responsibility has a clear home |
@@ -19,7 +21,7 @@ Work is grouped on `refactor/feature-modules` and `docs/developer-readme`. The c
 
 ## Verification
 
-- 15 frontend integration tests pass, including new URL-filter, prefilled-question, and retry-without-duplication cases.
+- 16 frontend integration tests cover session revocation, URL filters, prefilled questions, retry without duplication, and shared UI consumers.
 - The production build and formatting checks pass.
 - Desktop/mobile browser flows cover real API data, CSRF, relationships, logout, and two-account isolation.
 - Live AI verification remains opt-in because it uses external quota and availability.

@@ -1,3 +1,4 @@
+import { Button } from './Button';
 import { AlertCircle, LoaderCircle, Search } from 'lucide-react';
 import { errorMessage } from '../lib/api';
 
@@ -16,9 +17,9 @@ export function ErrorState({ error, retry }: { error: unknown; retry?: () => voi
       <AlertCircle size={25} />
       <p>{errorMessage(error)}</p>
       {retry && (
-        <button className="button secondary" onClick={retry}>
+        <Button variant="secondary" onClick={retry}>
           Try again
-        </button>
+        </Button>
       )}
     </div>
   );
