@@ -33,7 +33,20 @@ export function WorkspaceLayout({ user }: { user: User }) {
     .join('');
   return (
     <div className="workspace">
-      <aside className={`sidebar ${mobileOpen ? 'sidebar-open' : ''}`}>
+      {mobileOpen && (
+        <button
+          className="drawer-backdrop"
+          aria-label={t('details.closeMenu')}
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+      <aside
+        id="workspace-navigation"
+        className={`sidebar ${mobileOpen ? 'sidebar-open' : ''}`}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') setMobileOpen(false);
+        }}
+      >
         <Link className="brand" to="/" onClick={() => setMobileOpen(false)}>
           <Orbit size={28} />
           <span>
@@ -49,7 +62,7 @@ export function WorkspaceLayout({ user }: { user: User }) {
           <ChevronRight size={14} />
         </div>
         <div className="nav-label">{t('nav.section')}</div>
-        <nav aria-label="Main navigation">
+        <nav aria-label={t('ui.main_navigation')}>
           {[
             { to: '/', icon: LayoutDashboard, text: t('nav.overview'), end: true },
             { to: '/customers', icon: Users, text: t('nav.customers') },
@@ -59,7 +72,7 @@ export function WorkspaceLayout({ user }: { user: User }) {
             <NavLink end={end} key={to} to={to} onClick={() => setMobileOpen(false)}>
               <Icon size={19} />
               <span>{text}</span>
-              {to === '/assistant' && <span className="new-pill">AI</span>}
+              {to === '/assistant' && <span className="new-pill">{t('ui.ai')}</span>}
             </NavLink>
           ))}
         </nav>
@@ -90,24 +103,28 @@ export function WorkspaceLayout({ user }: { user: User }) {
         <header className="topbar">
           <button
             className="mobile-menu"
-            aria-label="Toggle navigation"
+            aria-expanded={mobileOpen}
+            aria-controls="workspace-navigation"
+            aria-label={t('ui.toggle_navigation')}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             <Command size={21} />
           </button>
           <div className="breadcrumb">
             <ChartNoAxesCombined size={17} />
-            <span>Workspace</span>
+            <span>{t('ui.workspace')}</span>
             <ChevronRight size={13} />
-            <strong>Sales</strong>
+            <strong>{t('ui.sales')}</strong>
           </div>
           <div className="topbar-right">
             <button
               className="preference-toggle"
               type="button"
               onClick={toggleTheme}
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+              aria-label={
+                theme === 'dark' ? t('ui.switch_to_light_mode') : t('ui.switch_to_dark_mode')
+              }
+              title={theme === 'dark' ? t('ui.light_mode') : t('ui.dark_mode')}
             >
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
@@ -118,7 +135,7 @@ export function WorkspaceLayout({ user }: { user: User }) {
             >
               {locale === 'en' ? t('common.arabic') : 'EN'}
             </button>
-            <span className="live-dot" aria-label="Online" />
+            <span className="live-dot" aria-label={t('ui.online')} />
             <span className="topbar-avatar" aria-label={user.name}>
               {initials}
             </span>

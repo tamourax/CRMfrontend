@@ -56,7 +56,7 @@ Return to Overview and generate the report narrative. It uses the same Laravel r
 
 ## 8. Language, theme and mobile
 
-Switch Arabic/English. React changes document direction and sends `Accept-Language`; queries refresh translated customer/deal data and status/stage labels. IDs, email, phone, numeric amounts and internal stage/status codes stay stable. Unknown translations fall back to canonical text. Some interface wording still uses existing English copy.
+Switch Arabic/English. React translates interface copy, changes document direction and sends `Accept-Language`; queries refresh translated customer/deal data and status/stage labels. Dates and EGP amounts use the selected locale. IDs, email, phone, underlying numeric amounts and internal stage/status codes stay stable. Unknown record translations fall back to canonical text. On mobile, dismiss the navigation drawer by tapping its backdrop or pressing Escape.
 
 Toggle dark/light mode and resize to a phone. Check the drawer, adaptive statistic cards, and tables that scroll inside their containers. Locale/theme preferences persist locally; authentication credentials do not live in browser JavaScript storage.
 

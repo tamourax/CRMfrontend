@@ -1,3 +1,4 @@
+import { translate } from '../preferences/LocaleProvider';
 import axios from 'axios';
 
 export const sessionExpiredEvent = 'crm:session-expired';
@@ -29,19 +30,17 @@ api.interceptors.response.use(
 );
 
 export function errorMessage(error: unknown): string {
+  const text = (key: string) =>
+    translate('errors.' + key, localStorage.getItem('orbit-locale') === 'ar' ? 'ar' : 'en');
   if (axios.isAxiosError(error)) {
-    if (error.response?.status === 419)
-      return 'Your session expired. Refresh the page and sign in again.';
-    if (error.response?.status === 429)
-      return 'Too many requests. Please wait a minute and try again.';
+    if (error.response?.status === 419) return text('expired');
+    if (error.response?.status === 429) return text('limited');
     return (
       error.response?.data?.message ||
-      (error.code === 'ECONNABORTED'
-        ? 'The request timed out. Please try again.'
-        : 'Unable to connect. Check that the API is running.')
+      (error.code === 'ECONNABORTED' ? text('timeout') : text('connection'))
     );
   }
-  return 'Something went wrong. Please try again.';
+  return text('unknown');
 }
 
 export function isUnauthorized(error: unknown): boolean {

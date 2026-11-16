@@ -14,7 +14,7 @@ A React sales workspace for Egyptian customer relationships, EGP opportunities, 
 | AI assistant `/assistant` | Independent deal questions, backend facts, source links and clear missing-data/provider errors                      |
 | Sales AI narrative        | On-demand explanation of the same statistics displayed in the overview                                              |
 
-The app supports Arabic/English preferences, RTL navigation, light/dark mode and mobile layouts. Seeded business records have translated Arabic/English values. Some interface copy and existing record values may remain English where a translation is not supplied; unknown record translations fall back to canonical text.
+The app supports Arabic/English interface copy, localized dates and EGP formatting, RTL navigation, light/dark mode and mobile layouts. Seeded business records have translated Arabic/English values. Unknown record translations fall back to canonical text; names, email addresses, IDs and technical codes retain their stored values.
 
 Customers and deals are seeded, read-only records in this assessment. CRUD editing, registration, admin roles, persisted conversations, historical analytics, streaming and production hosting are outside the implemented scope. The core CRM works without an AI key; AI then shows an unavailable state rather than simulated answers.
 

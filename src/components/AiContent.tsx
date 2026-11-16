@@ -1,27 +1,33 @@
+import { useT, useLocale } from '../preferences/LocaleProvider';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { money, titleCase } from '../lib/format';
 import type { AiResult } from '../types';
 
 export function AiContent({ result }: { result: AiResult }) {
+  const t = useT();
+  const { locale } = useLocale();
   const scalarFacts = Object.entries(result.facts).filter(
     ([, value]) => typeof value === 'number' || typeof value === 'string',
   );
   return (
     <div className="ai-content">
       <div className="verified-label">
-        <span />
-        Grounded in your CRM records
+        <span /> {t('ui.grounded_in_your_crm_records')}{' '}
       </div>
       {scalarFacts.length > 0 && (
         <div className="fact-grid">
           {scalarFacts.map(([key, value]) => (
             <div key={key}>
-              <span>{titleCase(key)}</span>
+              <span>
+                {t('facts.' + key) === 'facts.' + key ? titleCase(key) : t('facts.' + key)}
+              </span>
               <strong>
                 {/value|amount/.test(key) && /^\d+(\.\d+)?$/.test(String(value))
                   ? money(String(value))
-                  : String(value)}
+                  : ['stage', 'ranking_metric'].includes(key)
+                    ? t((key === 'stage' ? 'ui.' : 'facts.') + value)
+                    : String(value)}
               </strong>
             </div>
           ))}
@@ -40,7 +46,7 @@ export function AiContent({ result }: { result: AiResult }) {
       ))}
       {result.sources.length > 0 && (
         <div className="sources">
-          <span>Sources</span>
+          <span>{t('ui.sources')}</span>
           {result.sources.map((source, index) =>
             source.type !== 'aggregate' && source.id ? (
               <Link
@@ -59,12 +65,13 @@ export function AiContent({ result }: { result: AiResult }) {
         </div>
       )}
       <small className="muted">
-        Generated{' '}
-        {new Date(result.generated_at).toLocaleTimeString('en-US', {
+        {' '}
+        {t('ui.generated')}{' '}
+        {new Date(result.generated_at).toLocaleTimeString(locale === 'ar' ? 'ar-EG' : 'en-US', {
           hour: '2-digit',
           minute: '2-digit',
         })}{' '}
-        · Review recommendations before acting.
+        {t('ui.review_recommendations_before_acting')}{' '}
       </small>
     </div>
   );

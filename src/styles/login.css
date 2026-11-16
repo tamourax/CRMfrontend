@@ -154,6 +154,19 @@
 .login-form input::placeholder {
   color: #b4bfaa;
 }
+html[data-theme='dark'] .login-page {
+  background: #18231f;
+}
+html[data-theme='dark'] .login-form h2 {
+  color: #e4ece8;
+}
+html[data-theme='dark'] .login-form label,
+html[data-theme='dark'] .login-form > p {
+  color: #b7c5be;
+}
+html[data-theme='dark'] .sidebar > .brand {
+  color: #e4ece8;
+}
 .login-form form .button {
   margin-top: 8px;
   min-height: 43px;

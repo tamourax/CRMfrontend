@@ -1,3 +1,4 @@
+import { useT } from '../../preferences/LocaleProvider';
 import { useSearchParams } from 'react-router-dom';
 import { useDealAssistant } from './useDealAssistant';
 import { useState } from 'react';
@@ -17,35 +18,35 @@ import {
 
 import { AiContent, PageHeader } from '../../components';
 
-const suggestions = [
-  {
-    question: 'What are the highest-value open deals?',
-    icon: CircleDollarSign,
-    label: 'Find your next big win',
-  },
-  {
-    question: 'Which deals are expected to close this month?',
-    icon: Clock3,
-    label: 'Plan your month',
-  },
-  {
-    question: 'Which customers have the most active deals?',
-    icon: Users,
-    label: 'Know your key relationships',
-  },
-  {
-    question: 'What is the total value of deals in the Negotiation stage?',
-    icon: MessageSquare,
-    label: 'Understand your pipeline',
-  },
-  {
-    question: 'What are the reasons behind the lost deals?',
-    icon: MessageSquare,
-    label: 'Learn from lost opportunities',
-  },
-];
-
 export function AssistantPage() {
+  const t = useT();
+  const suggestions = [
+    {
+      question: t('ui.what_are_the_highest_value_open_deals'),
+      icon: CircleDollarSign,
+      label: t('ui.find_your_next_big_win'),
+    },
+    {
+      question: t('ui.which_deals_are_expected_to_close_this_month'),
+      icon: Clock3,
+      label: t('ui.plan_your_month'),
+    },
+    {
+      question: t('ui.which_customers_have_the_most_active_deals'),
+      icon: Users,
+      label: t('ui.know_your_key_relationships'),
+    },
+    {
+      question: t('ui.what_is_the_total_value_of_deals_in_the_negotiation_stage'),
+      icon: MessageSquare,
+      label: t('ui.understand_your_pipeline'),
+    },
+    {
+      question: t('ui.what_are_the_reasons_behind_the_lost_deals'),
+      icon: MessageSquare,
+      label: t('ui.learn_from_lost_opportunities'),
+    },
+  ];
   const [params] = useSearchParams();
   const [question, setQuestion] = useState(params.get('question') || '');
   const { messages, status, isPending, send: sendQuestion, retry } = useDealAssistant();
@@ -59,13 +60,12 @@ export function AssistantPage() {
   return (
     <>
       <PageHeader
-        eyebrow="A FRESH PERSPECTIVE"
-        title="Your deal assistant"
-        description="Ask a question. Find the signal in your sales data."
+        eyebrow={t('ui.a_fresh_perspective')}
+        title={t('ui.your_deal_assistant')}
+        description={t('details.assistantHint')}
         action={
           <span className="header-tag">
-            <ShieldCheck size={15} />
-            Read-only access
+            <ShieldCheck size={15} /> {t('ui.read_only_access')}{' '}
           </span>
         }
       />
@@ -74,10 +74,12 @@ export function AssistantPage() {
           <div className="configuration-notice" role="status">
             <Sparkles size={18} />
             <div>
-              <strong>AI is not configured yet</strong>
+              <strong>{t('ui.ai_is_not_configured_yet')}</strong>
               <p>
-                Your CRM is ready. Add a valid AI API key to enable live answers. No simulated
-                answers are shown.
+                {' '}
+                {t(
+                  'ui.your_crm_is_ready_add_a_valid_ai_api_key_to_enable_live_answers_no_simulated_answers_are_shown',
+                )}{' '}
               </p>
             </div>
           </div>
@@ -88,16 +90,15 @@ export function AssistantPage() {
               <div className="assistant-orb">
                 <Sparkles size={33} />
               </div>
-              <span className="eyebrow">MEET YOUR WORKSPACE COPILOT</span>
+              <span className="eyebrow">{t('ui.meet_your_workspace_copilot')}</span>
               <h2>
-                A good question can
-                <br />
-                open a new opportunity.
+                {' '}
+                {t('ui.a_good_question_can')} <br /> {t('ui.open_a_new_opportunity')}{' '}
               </h2>
               <p>
-                I can help you explore your deals, understand your pipeline,
-                <br />
-                and see where to focus next — using your actual CRM data.
+                {' '}
+                {t('ui.i_can_help_you_explore_your_deals_understand_your_pipeline')} <br />{' '}
+                {t('ui.and_see_where_to_focus_next_using_your_actual_crm_data')}{' '}
               </p>
               <div className="suggestion-grid">
                 {suggestions.map(({ question: text, icon: Icon, label }) => (
@@ -129,13 +130,14 @@ export function AssistantPage() {
                           onClick={() => retry(message)}
                           disabled={isPending}
                         >
-                          Try again
+                          {' '}
+                          {t('ui.try_again')}{' '}
                         </button>
                       </div>
                     ) : (
                       <div className="thinking" role="status">
-                        <LoaderCircle size={17} className="spin" />
-                        Checking your CRM records…
+                        <LoaderCircle size={17} className="spin" />{' '}
+                        {t('ui.checking_your_crm_records')}{' '}
                       </div>
                     )}
                   </div>
@@ -147,14 +149,15 @@ export function AssistantPage() {
         <div className="composer-area">
           <form onSubmit={submit} className="chat-composer">
             <label htmlFor="question" className="sr-only">
-              Ask about your deals
+              {' '}
+              {t('ui.ask_about_your_deals')}{' '}
             </label>
             <textarea
               id="question"
               maxLength={2000}
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
-              placeholder="Ask about your deals, customers, or pipeline…"
+              placeholder={t('ui.ask_about_your_deals_customers_or_pipeline')}
               rows={2}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' && !event.shiftKey) {
@@ -163,13 +166,15 @@ export function AssistantPage() {
                 }
               }}
             />
-            <button aria-label="Send question" disabled={!question.trim() || isPending}>
+            <button aria-label={t('ui.send_question')} disabled={!question.trim() || isPending}>
               {isPending ? <LoaderCircle className="spin" size={19} /> : <ArrowUp size={21} />}
             </button>
           </form>
           <p>
-            <ShieldCheck size={12} /> Only your accessible records are used. Each question is
-            independent. Recommendations may need review.
+            <ShieldCheck size={12} />{' '}
+            {t(
+              'ui.only_your_accessible_records_are_used_each_question_is_independent_recommendations_may_need_review',
+            )}{' '}
           </p>
         </div>
       </section>

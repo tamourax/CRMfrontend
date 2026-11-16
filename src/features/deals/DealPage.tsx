@@ -26,20 +26,19 @@ export function DealPage() {
   return (
     <>
       <Link className="back-link" to="/deals">
-        <ArrowLeft size={15} />
-        All deals
+        <ArrowLeft size={15} /> {t('ui.all_deals')}{' '}
       </Link>
       <PageHeader
         eyebrow={`OPPORTUNITY · DL-${String(deal.id).padStart(4, '0')}`}
         title={deal.title}
-        description="Every detail you need to keep this opportunity moving."
+        description={t('ui.every_detail_you_need_to_keep_this_opportunity_moving')}
         action={<Badge value={deal.stage} label={deal.stage_label} />}
       />
       <OverviewCover
         variant="project"
         label={t('deals.projectOverview')}
         title={deal.title}
-        imageAlt="Illustration of a Cairo business district along the Nile"
+        imageAlt={t('ui.illustration_of_a_cairo_business_district_along_the_nile')}
         description={
           <>
             {deal.customer?.company} · {deal.customer?.industry} ·{' '}
@@ -50,12 +49,12 @@ export function DealPage() {
       <div className="deal-highlights">
         <Panel>
           <CircleDollarSign size={22} />
-          <span>Deal value</span>
+          <span>{t('ui.deal_value')}</span>
           <strong>{money(deal.value)}</strong>
         </Panel>
         <Panel>
           <Building2 size={22} />
-          <span>Customer</span>
+          <span>{t('ui.customer')}</span>
           <Link className="deal-customer-link" to={`/customers/${deal.customer_id}`}>
             <span>
               <strong>{deal.customer?.company}</strong>
@@ -69,32 +68,33 @@ export function DealPage() {
         </Panel>
         <Panel>
           <CalendarDays size={22} />
-          <span>Expected closing date</span>
+          <span>{t('ui.expected_closing_date')}</span>
           <strong>{dateLabel(deal.expected_close_date)}</strong>
         </Panel>
       </div>
       <Panel>
         <PanelHeading>
-          <h2>Project scope</h2>
+          <h2>{t('ui.project_scope')}</h2>
         </PanelHeading>
-        <p className="notes-text">{deal.description || 'No description recorded.'}</p>
+        <p className="notes-text">{deal.description || t('ui.no_description_recorded')}</p>
         {deal.stage === 'lost' && (
           <div className="lost-note">
-            <h3>Reason for loss</h3>
-            <p>{deal.lost_reason || 'The reason for this lost deal has not been recorded.'}</p>
+            <h3>{t('ui.reason_for_loss')}</h3>
+            <p>{deal.lost_reason || t('ui.the_reason_for_this_lost_deal_has_not_been_recorded')}</p>
           </div>
         )}
       </Panel>
       <section className="next-step">
         <div>
-          <h2>A clearer next move.</h2>
-          <p>Ask your assistant about this deal or the wider pipeline.</p>
+          <h2>{t('ui.a_clearer_next_move')}</h2>
+          <p>{t('ui.ask_your_assistant_about_this_deal_or_the_wider_pipeline')}</p>
         </div>
         <ButtonLink
           variant="primary"
           to={`/assistant?question=${encodeURIComponent(`Show details for deal ${deal.id}`)}`}
         >
-          Ask assistant <ArrowUpRight size={16} />
+          {' '}
+          {t('ui.ask_assistant')} <ArrowUpRight size={16} />
         </ButtonLink>
       </section>
     </>

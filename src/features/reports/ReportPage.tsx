@@ -1,3 +1,4 @@
+import { useT } from '../../preferences/LocaleProvider';
 import {
   ButtonLink,
   StatCard,
@@ -30,6 +31,7 @@ import {
 import { compactMoney, money, titleCase } from '../../lib/format';
 
 export function ReportPage() {
+  const t = useT();
   const query = useSalesReport();
   const deals = usePriorityDeals();
   if (query.isPending) return <Loading />;
@@ -40,27 +42,28 @@ export function ReportPage() {
   return (
     <>
       <PageHeader
-        eyebrow="THE BIG PICTURE"
-        title="Sales overview"
-        description="Your relationships, your pipeline, your next opportunity."
+        eyebrow={t('ui.the_big_picture')}
+        title={t('ui.sales_overview')}
+        description={t('ui.your_relationships_your_pipeline_your_next_opportunity')}
       />
       <section className="overview-banner">
         <div>
-          <span className="eyebrow light">A LITTLE CLARITY GOES A LONG WAY</span>
+          <span className="eyebrow light">{t('ui.a_little_clarity_goes_a_long_way')}</span>
           <h2>
-            See the opportunity.
-            <br />
-            Make your next move.
+            {' '}
+            {t('ui.see_the_opportunity')} <br /> {t('ui.make_your_next_move')}{' '}
           </h2>
           <p>
-            You have <strong>{report.open_count} open deals</strong> worth{' '}
-            <strong>{money(report.pipeline_value)}</strong>.<br />
-            Let’s turn promising conversations into lasting partnerships.
+            {' '}
+            {t('ui.you_have')}{' '}
+            <strong>
+              {report.open_count} {t('ui.open_deals')}
+            </strong>{' '}
+            {t('ui.worth')} <strong>{money(report.pipeline_value)}</strong>.<br />{' '}
+            {t('ui.let_s_turn_promising_conversations_into_lasting_partnerships')}{' '}
           </p>
           <ButtonLink variant="light" to="/assistant">
-            <Sparkles size={16} />
-            Ask your assistant
-            <ArrowUpRight size={16} />
+            <Sparkles size={16} /> {t('ui.ask_your_assistant')} <ArrowUpRight size={16} />
           </ButtonLink>
         </div>
         <div className="banner-visual" aria-hidden="true">
@@ -70,7 +73,7 @@ export function ReportPage() {
             <span className="mini-icon">
               <TrendingUp size={21} />
             </span>
-            <small>Open pipeline</small>
+            <small>{t('ui.open_pipeline')}</small>
             <strong>{compactMoney(report.pipeline_value)}</strong>
             <div className="mini-bars">
               {report.stages
@@ -83,10 +86,10 @@ export function ReportPage() {
                   />
                 ))}
             </div>
-            <span className="mini-caption">Room for your next big win.</span>
+            <span className="mini-caption">{t('ui.room_for_your_next_big_win')}</span>
           </div>
           <span className="floating-check">
-            <Check size={19} /> Moving forward
+            <Check size={19} /> {t('ui.moving_forward')}{' '}
           </span>
           <Sparkles className="banner-sparkle" size={26} />
         </div>
@@ -94,30 +97,32 @@ export function ReportPage() {
       <div className="stats-grid">
         {[
           {
-            label: 'Open pipeline',
+            label: t('ui.open_pipeline'),
             value: money(report.pipeline_value),
-            note: `${report.open_count} active opportunities`,
+            note: t('details.active', { count: report.open_count }),
             icon: CircleDollarSign,
             tone: 'green' as const,
           },
           {
-            label: 'Won deal value',
+            label: t('ui.won_deal_value'),
             value: money(report.won_value),
-            note: `${report.won_count} deals closed won`,
+            note: t('details.won', { count: report.won_count }),
             icon: Target,
             tone: 'blue' as const,
           },
           {
-            label: 'Total deals',
+            label: t('ui.total_deals'),
             value: String(report.total_deals),
-            note: `${decided ? Math.round((report.won_count / decided) * 100) : 0}% win rate among decided deals`,
+            note: t('details.winRate', {
+              count: decided ? Math.round((report.won_count / decided) * 100) : 0,
+            }),
             icon: Handshake,
             tone: 'purple' as const,
           },
           {
-            label: 'Lost deals',
+            label: t('ui.lost_deals'),
             value: String(report.lost_count),
-            note: `${money(report.lost_value)} in deal value`,
+            note: t('details.lostValue', { value: money(report.lost_value) }),
             icon: ArrowDownRight,
             tone: 'sand' as const,
           },
@@ -129,10 +134,10 @@ export function ReportPage() {
         <Panel>
           <PanelHeading>
             <div>
-              <h2>Pipeline by stage</h2>
-              <p>Where your opportunities stand today</p>
+              <h2>{t('ui.pipeline_by_stage')}</h2>
+              <p>{t('ui.where_your_opportunities_stand_today')}</p>
             </div>
-            <span className="tiny-label">ALL DEALS</span>
+            <span className="tiny-label">{t('ui.all_deals')}</span>
           </PanelHeading>
           <div className="stage-chart">
             {report.stages.map((stage) => (
@@ -154,16 +159,17 @@ export function ReportPage() {
             ))}
           </div>
           <div className="panel-footnote">
-            Pipeline value includes Lead, Qualified, Proposal, and Negotiation.
+            {' '}
+            {t('ui.pipeline_value_includes_lead_qualified_proposal_and_negotiation')}{' '}
           </div>
         </Panel>
         <Panel>
           <PanelHeading>
             <div>
-              <h2>Top relationships</h2>
-              <p>Customers by total deal value</p>
+              <h2>{t('ui.top_relationships')}</h2>
+              <p>{t('ui.customers_by_total_deal_value')}</p>
             </div>
-            <Link className="icon-link" aria-label="View all customers" to="/customers">
+            <Link className="icon-link" aria-label={t('ui.view_all_customers')} to="/customers">
               <ArrowUpRight size={18} />
             </Link>
           </PanelHeading>
@@ -177,13 +183,15 @@ export function ReportPage() {
                   </span>
                   <div>
                     <strong>{customer.company}</strong>
-                    <small>{customer.deal_count} deals</small>
+                    <small>
+                      {customer.deal_count} {t('ui.deals')}
+                    </small>
                   </div>
                   <span className="top-value">{compactMoney(customer.total_value)}</span>
                 </Link>
               ))
             ) : (
-              <Empty title="No customer activity yet" />
+              <Empty title={t('ui.no_customer_activity_yet')} />
             )}
           </div>
         </Panel>
@@ -195,40 +203,44 @@ export function ReportPage() {
           </span>
           <p>
             <strong>
-              {report.closing_this_month_count} open deals expected to close this month
+              {report.closing_this_month_count}{' '}
+              {t('ui.open_deals_expected_to_close_this_month')}{' '}
             </strong>
             <span>
-              {money(report.closing_this_month_value)} in potential value · Expected dates, not
-              realized revenue
+              {money(report.closing_this_month_value)}{' '}
+              {t('ui.in_potential_value_expected_dates_not_realized_revenue')}{' '}
             </span>
           </p>
         </div>
         <Link to="/deals?closing=this_month&stage=open">
-          Review deals
-          <ArrowRight size={15} />
+          {' '}
+          {t('ui.review_deals')} <ArrowRight size={15} />
         </Link>
       </div>
       {report.overdue_count > 0 && (
         <div className="risk-strip">
           <Clock3 size={16} />
           <span>
-            {report.overdue_count} open deals have a past expected close date. A follow-up could
-            bring clarity.
+            {report.overdue_count}{' '}
+            {t(
+              'ui.open_deals_have_a_past_expected_close_date_a_follow_up_could_bring_clarity',
+            )}{' '}
           </span>
           <Link to="/deals?closing=overdue">
-            Review <ArrowUpRight size={14} />
+            {' '}
+            {t('ui.review')} <ArrowUpRight size={14} />
           </Link>
         </div>
       )}
       <Panel>
         <PanelHeading>
           <div>
-            <h2>High-value opportunities</h2>
-            <p>Your five largest open deals</p>
+            <h2>{t('ui.high_value_opportunities')}</h2>
+            <p>{t('ui.your_five_largest_open_deals')}</p>
           </div>
           <Link className="text-link" to="/deals">
-            View all deals
-            <ArrowRight size={15} />
+            {' '}
+            {t('ui.view_all_deals')} <ArrowRight size={15} />
           </Link>
         </PanelHeading>
         {deals.isPending ? (
@@ -241,8 +253,8 @@ export function ReportPage() {
       </Panel>
       <AiPanel
         endpoint="/api/reports/sales/ai-summary"
-        title="The story behind your numbers"
-        description="Get a grounded summary of performance, risks, and opportunities."
+        title={t('ui.the_story_behind_your_numbers')}
+        description={t('ui.get_a_grounded_summary_of_performance_risks_and_opportunities')}
       />
     </>
   );

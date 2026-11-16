@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useT } from '../preferences/LocaleProvider';
 import type { User } from '../types';
 import { Empty } from '../components';
 import { WorkspaceLayout } from '../layout/WorkspaceLayout';
@@ -10,6 +11,7 @@ import { ReportPage } from '../features/reports/ReportPage';
 import { AssistantPage } from '../features/assistant/AssistantPage';
 
 export function WorkspaceRoutes({ user }: { user: User }) {
+  const t = useT();
   return (
     <Routes>
       <Route element={<WorkspaceLayout user={user} />}>
@@ -22,12 +24,7 @@ export function WorkspaceRoutes({ user }: { user: User }) {
         <Route path="/login" element={<Navigate replace to="/" />} />
         <Route
           path="*"
-          element={
-            <Empty
-              title="Page not found"
-              description="Choose a page from the navigation to get back to your workspace."
-            />
-          }
+          element={<Empty title={t('common.notFound')} description={t('details.notFoundHint')} />}
         />
       </Route>
     </Routes>

@@ -53,5 +53,9 @@ export function useLocale() {
 
 export function useT() {
   const { locale } = useLocale();
-  return (key: TranslationKey) => translate(key, locale);
+  return (key: TranslationKey, values: Record<string, string | number> = {}) =>
+    Object.entries(values).reduce(
+      (text, [name, value]) => text.replaceAll(`{${name}}`, String(value)),
+      translate(key, locale),
+    );
 }

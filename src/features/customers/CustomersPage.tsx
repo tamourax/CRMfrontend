@@ -1,12 +1,13 @@
+import { useT } from '../../preferences/LocaleProvider';
 import { Panel, Badge, Empty, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 import { useCustomers } from './customerQueries';
 import { useListFilters } from '../../hooks/useListFilters';
 
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search, SlidersHorizontal, Users } from 'lucide-react';
-import { titleCase } from '../../lib/format';
 
 export function CustomersPage() {
+  const t = useT();
   const {
     filters: { search, status },
     page,
@@ -17,13 +18,13 @@ export function CustomersPage() {
   return (
     <>
       <PageHeader
-        eyebrow="YOUR NETWORK"
-        title="Customers"
-        description="The people and companies behind your next opportunity."
+        eyebrow={t('ui.your_network')}
+        title={t('details.customers')}
+        description={t('ui.the_people_and_companies_behind_your_next_opportunity')}
         action={
           <span className="header-tag">
             <Users size={16} />
-            {query.data?.meta.total ?? '—'} customers
+            {query.data?.meta.total ?? '—'} {t('ui.customers')}{' '}
           </span>
         }
       />
@@ -32,8 +33,8 @@ export function CustomersPage() {
           <label className="search-input">
             <Search size={17} />
             <input
-              aria-label="Search customers"
-              placeholder="Search name or company…"
+              aria-label={t('ui.search_customers')}
+              placeholder={t('ui.search_name_or_company')}
               value={search}
               onChange={(event) => {
                 setFilter('search', event.target.value);
@@ -43,16 +44,16 @@ export function CustomersPage() {
           <label className="select-label">
             <SlidersHorizontal size={16} />
             <select
-              aria-label="Customer status"
+              aria-label={t('ui.customer_status')}
               value={status}
               onChange={(event) => {
                 setFilter('status', event.target.value);
               }}
             >
-              <option value="">All statuses</option>
+              <option value="">{t('ui.all_statuses')}</option>
               {['prospect', 'active', 'inactive'].map((value) => (
                 <option key={value} value={value}>
-                  {titleCase(value)}
+                  {t('ui.' + value)}
                 </option>
               ))}
             </select>
@@ -63,20 +64,20 @@ export function CustomersPage() {
         ) : query.isError ? (
           <ErrorState error={query.error} retry={() => void query.refetch()} />
         ) : !query.data.data.length ? (
-          <Empty title="No customers found" />
+          <Empty title={t('ui.no_customers_found')} />
         ) : (
           <>
             <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th>Customer</th>
-                    <th>Contact</th>
-                    <th>Industry</th>
-                    <th>Status</th>
-                    <th>Deals</th>
+                    <th>{t('ui.customer')}</th>
+                    <th>{t('ui.contact')}</th>
+                    <th>{t('ui.industry')}</th>
+                    <th>{t('ui.status')}</th>
+                    <th>{t('ui.deals')}</th>
                     <th>
-                      <span className="sr-only">Open</span>
+                      <span className="sr-only">{t('ui.open')}</span>
                     </th>
                   </tr>
                 </thead>
@@ -96,7 +97,7 @@ export function CustomersPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="muted">{customer.email || 'Not provided'}</td>
+                      <td className="muted">{customer.email || t('ui.not_provided')}</td>
                       <td>{customer.industry}</td>
                       <td>
                         <Badge value={customer.status} label={customer.status_label} />
@@ -106,7 +107,7 @@ export function CustomersPage() {
                         <Link
                           className="icon-link"
                           to={`/customers/${customer.id}`}
-                          aria-label={`View ${customer.company}`}
+                          aria-label={t('details.view', { name: customer.company })}
                         >
                           <ArrowUpRight size={17} />
                         </Link>

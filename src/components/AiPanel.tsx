@@ -1,3 +1,4 @@
+import { useT } from '../preferences/LocaleProvider';
 import { PanelHeading, Panel } from './Panel';
 
 import { Button } from './Button';
@@ -17,6 +18,7 @@ export function AiPanel({
   title: string;
   description: string;
 }) {
+  const t = useT();
   const mutation = useAiSummary(endpoint);
   const { locale } = useLocale();
   const reset = mutation.reset;
@@ -41,7 +43,11 @@ export function AiPanel({
           ) : (
             <Sparkles size={16} />
           )}{' '}
-          {mutation.isPending ? 'Analyzing…' : mutation.data ? 'Regenerate' : 'Generate summary'}
+          {mutation.isPending
+            ? t('ui.analyzing')
+            : mutation.data
+              ? t('ui.regenerate')
+              : t('ui.generate_summary')}
         </Button>
       </PanelHeading>
       {mutation.isError && <ErrorState error={mutation.error} retry={() => mutation.mutate()} />}{' '}
