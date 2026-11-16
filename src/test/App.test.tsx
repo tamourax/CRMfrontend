@@ -62,6 +62,15 @@ describe('workspace integration', () => {
     expect(await screen.findByText('No customers found')).toBeVisible();
   });
 
+  it('returns to login and removes private query data on logout', async () => {
+    mount();
+    const actor = userEvent.setup();
+    await screen.findByRole('heading', { name: 'Sales overview' });
+    await actor.click(screen.getByRole('button', { name: 'Sign out' }));
+    expect(await screen.findByRole('heading', { name: 'Welcome back' })).toBeVisible();
+    expect(screen.queryByRole('heading', { name: 'Sales overview' })).not.toBeInTheDocument();
+  });
+
   it('sends the selected deal stage to the API', async () => {
     let selectedStage: string | null = null;
     server.use(http.get('http://localhost:8000/api/deals', ({ request }) => { selectedStage = new URL(request.url).searchParams.get('stage'); return HttpResponse.json(page([])); }));

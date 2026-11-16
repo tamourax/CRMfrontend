@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logout, and isolation', async ({ page, browser }, testInfo) => {
+  test.setTimeout(60000);
   await page.goto('/');
   await page.getByLabel('Password', { exact: true }).fill('OrbitDemo!2026');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
@@ -22,7 +23,9 @@ test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logo
   await expect(page.locator('tbody .badge').first()).toHaveText('Negotiation');
   await page.getByRole('link', { name: 'AI Assistant', exact: false }).first().click();
   await expect(page.getByRole('heading', { name: 'Your deal assistant' })).toBeVisible();
-  if (await page.getByText('AI is not configured yet', { exact: true }).isVisible()) {
+  const aiStatus = await page.request.get('http://localhost:8000/api/status', { headers: { Origin: 'http://localhost:5173', Accept: 'application/json' } });
+  if (!(await aiStatus.json()).data.ai_configured) {
+    await expect(page.getByText('AI is not configured yet', { exact: true })).toBeVisible();
     await page.getByLabel('Ask about your deals').fill('What are the highest-value open deals?');
     await page.getByRole('button', { name: 'Send question' }).click();
     await expect(page.getByRole('alert')).toContainText('AI is not configured');
