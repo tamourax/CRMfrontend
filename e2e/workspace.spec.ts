@@ -18,13 +18,17 @@ test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logo
   await page.screenshot({ path: testInfo.outputPath('sales-overview.png'), fullPage: true });
   await page.getByRole('link', { name: 'Customers', exact: true }).click();
   await page.getByRole('link', { name: 'NileBridge Technologies', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'NileBridge Technologies', exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'NileBridge Technologies', exact: true }),
+  ).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Associated deals' })).toBeVisible();
   const customerUrl = page.url();
   const dealLink = page.locator('tbody a.strong-link').first();
   const dealTitle = await dealLink.textContent();
   await dealLink.click();
-  await expect(page.getByRole('heading', { name: dealTitle!, exact: true, level: 1 })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: dealTitle!, exact: true, level: 1 }),
+  ).toBeVisible();
   await expect(page.getByRole('link', { name: 'NileBridge Technologies' })).toBeVisible();
   await page.getByRole('link', { name: 'Deals', exact: true }).click();
   await page.getByRole('button', { name: 'Negotiation', exact: true }).click();
