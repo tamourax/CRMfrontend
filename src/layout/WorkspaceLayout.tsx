@@ -3,16 +3,13 @@ import { useState } from 'react';
 
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import {
-  ArrowUpRight,
   ChartNoAxesCombined,
   ChevronRight,
-  CircleHelp,
   Command,
   Handshake,
   LayoutDashboard,
   LogOut,
   Orbit,
-  ShieldCheck,
   Sparkles,
   Users,
   Moon,
@@ -66,19 +63,6 @@ export function WorkspaceLayout({ user }: { user: User }) {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-tip">
-            <span>
-              <Sparkles size={19} />
-            </span>
-            <h3>{t('layout.dataStory')}</h3>
-            <p>{t('layout.assistantHint')}</p>
-            <Link to="/assistant" onClick={() => setMobileOpen(false)}>
-              {t('layout.exploreAssistant')} <ArrowUpRight size={15} />
-            </Link>
-          </div>
-          <Link className="help-link" to="/assistant">
-            <CircleHelp size={17} /> {t('layout.exploreCrm')} <ArrowUpRight size={13} />
-          </Link>
           <div className="user-row">
             <span className="avatar">{initials}</span>
             <div>
@@ -121,19 +105,13 @@ export function WorkspaceLayout({ user }: { user: User }) {
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
             <button type="button" className="locale-toggle" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
-            <span className="live-dot" />
-            {t('layout.privateWorkspace')}<span className="topbar-avatar">{initials}</span>
+            <span className="live-dot" aria-label="Online" />
+            <span className="topbar-avatar" aria-label={user.name}>{initials}</span>
           </div>
         </header>
         <main className="main-content">
           <Outlet />
         </main>
-        <footer className="workspace-footer">
-          <span>{t('layout.footer')}</span>
-          <span>
-            <ShieldCheck size={13} /> {t('layout.privacy')}
-          </span>
-        </footer>
       </div>
     </div>
   );

@@ -11,15 +11,8 @@
   "layout": {
     "salesWorkspace": "مساحة المبيعات",
     "personalWorkspace": "مساحة شخصية",
-    "privateWorkspace": "مساحة عمل خاصة",
     "signOut": "تسجيل الخروج",
-    "salesRepresentative": "مندوب مبيعات",
-    "dataStory": "بياناتك تحكي قصة أوضح.",
-    "assistantHint": "اسأل المساعد عن الصفقات والفرص والخطوة التالية.",
-    "exploreAssistant": "اكتشف المساعد",
-    "exploreCrm": "استكشف نظامك",
-    "footer": "مصممة لعلاقات عمل مثمرة.",
-    "privacy": "مساحة عملك. بياناتك."
+    "salesRepresentative": "مندوب مبيعات"
   },
   "auth": {
     "welcomeBack": "مرحبًا بعودتك",
@@ -27,9 +20,7 @@
     "workEmail": "البريد الإلكتروني للعمل",
     "password": "كلمة المرور",
     "passwordPlaceholder": "أدخل كلمة المرور",
-    "signIn": "تسجيل الدخول",
-    "demoWorkspace": "مساحة تجريبية",
-    "demoHint": "استخدم الحساب التجريبي وكلمة المرور في ملف README."
+    "signIn": "تسجيل الدخول"
   },
   "common": {
     "english": "الإنجليزية",
