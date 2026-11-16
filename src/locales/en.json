@@ -29,7 +29,8 @@
     "lightMode": "Switch to light mode",
     "sources": "Sources",
     "tryAgain": "Try again",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "egypt": "Egypt"
   },
   "customers": {
     "search": "Search name or company…",
@@ -37,6 +38,9 @@
     "contactCompany": "Contact & company",
     "contactName": "Contact name",
     "industry": "Industry",
+    "industryLocation": "Industry & location",
+    "overview": "Customer overview",
+    "associatedDealsCount": "{count} associated deals",
     "relationshipNotes": "Relationship notes",
     "associatedDeals": "Associated deals",
     "empty": "No customers found"
@@ -56,6 +60,7 @@
     "closingSoonest": "Closing soonest",
     "newestFirst": "Newest first",
     "overview": "Deal overview",
+    "projectOverview": "Project overview",
     "dealValue": "Deal value",
     "lossReason": "Reason for loss"
   },

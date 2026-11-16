@@ -2,14 +2,15 @@ import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import type { AiResult, Customer, Deal, SalesReport, User } from '../types';
 
-export const user: User = { id: 1, name: 'Alex Morgan', email: 'alex@orbit.example' };
+export const user: User = { id: 1, name: 'Ahmed Tamer', email: 'ahmed@7bahmedtamer.example' };
 export const customer: Customer = {
   id: 1,
-  name: 'Morgan Reed',
-  email: 'morgan@atlas.example',
-  phone: null,
-  company: 'Atlas Industries',
-  industry: 'Manufacturing',
+  name: 'Ahmed Hassan',
+  email: 'ahmed.hassan@nilebridge.example',
+  phone: '+20 10 0000 0001',
+  company: 'NileBridge Technologies',
+  industry: 'Technology',
+  city: 'Cairo',
   status: 'active',
   notes: 'Security review pending.',
   deals_count: 1,
@@ -17,38 +18,38 @@ export const customer: Customer = {
 export const deal: Deal = {
   id: 1,
   customer_id: 1,
-  title: 'Platform rollout',
-  value: '12500.25',
+  title: 'ERP implementation',
+  value: '1250000.25',
   stage: 'negotiation',
   expected_close_date: '2026-11-30',
   customer,
 };
 export const result: AiResult = {
   sections: [
-    { title: 'Negotiation overview', content: 'The recorded negotiation value is USD 12500.25.' },
+    { title: 'Negotiation overview', content: 'The recorded negotiation value is EGP 1250000.25.' },
   ],
-  facts: { total_value: '12500.25', deal_count: 1 },
-  sources: [{ type: 'deal', id: 1, label: 'Platform rollout' }],
+  facts: { total_value: '1250000.25', deal_count: 1 },
+  sources: [{ type: 'deal', id: 1, label: 'ERP implementation' }],
   generated_at: '2026-11-16T12:00:00+02:00',
   mode: 'live',
   limitations: [],
 };
 export const report: SalesReport = {
   total_deals: 1,
-  total_value: '12500.25',
-  pipeline_value: '12500.25',
+  total_value: '1250000.25',
+  pipeline_value: '1250000.25',
   open_count: 1,
   won_count: 0,
   won_value: '0.00',
   lost_count: 0,
   lost_value: '0.00',
   closing_this_month_count: 1,
-  closing_this_month_value: '12500.25',
+  closing_this_month_value: '1250000.25',
   overdue_count: 0,
   stages: ['lead', 'qualified', 'proposal', 'negotiation', 'won', 'lost'].map((stage) => ({
     stage: stage as Deal['stage'],
     count: stage === 'negotiation' ? 1 : 0,
-    value: stage === 'negotiation' ? '12500.25' : '0.00',
+    value: stage === 'negotiation' ? '1250000.25' : '0.00',
   })),
   top_customers: [
     {
@@ -56,12 +57,12 @@ export const report: SalesReport = {
       company: customer.company,
       name: customer.name,
       deal_count: 1,
-      total_value: '12500.25',
+      total_value: '1250000.25',
     },
   ],
   as_of: '2026-11-16T12:00:00+02:00',
   timezone: 'Africa/Cairo',
-  currency: 'USD',
+  currency: 'EGP',
 };
 export const page = <T>(data: T[]) => ({
   data,

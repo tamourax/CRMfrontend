@@ -17,15 +17,15 @@ test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logo
   expect(csrf.status()).toBe(419);
   await page.screenshot({ path: testInfo.outputPath('sales-overview.png'), fullPage: true });
   await page.getByRole('link', { name: 'Customers', exact: true }).click();
-  await page.getByRole('link', { name: 'Atlas Industries', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Atlas Industries', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'NileBridge Technologies', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'NileBridge Technologies', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Associated deals' })).toBeVisible();
   const customerUrl = page.url();
   const dealLink = page.locator('tbody a.strong-link').first();
   const dealTitle = await dealLink.textContent();
   await dealLink.click();
   await expect(page.getByRole('heading', { name: dealTitle!, exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Atlas Industries' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'NileBridge Technologies' })).toBeVisible();
   await page.getByRole('link', { name: 'Deals', exact: true }).click();
   await page.getByRole('button', { name: 'Negotiation', exact: true }).click();
   await expect(page.locator('tbody .badge').first()).toHaveText('Negotiation');
@@ -43,7 +43,7 @@ test('real PostgreSQL workspace: sign in, relationships, filters, AI state, logo
   const isolated = await browser.newContext();
   const otherPage = await isolated.newPage();
   await otherPage.goto('http://localhost:5173/');
-  await otherPage.getByLabel('Work email').fill('sarah@orbit.example');
+  await otherPage.getByLabel('Work email').fill('nour@7bahmedtamer.example');
   await otherPage.getByLabel('Password', { exact: true }).fill('OrbitDemo!2026');
   await otherPage.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(otherPage.getByRole('heading', { name: 'Sales overview' })).toBeVisible();

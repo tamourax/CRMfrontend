@@ -1,13 +1,13 @@
 export const money = (value: string | number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'EGP',
     maximumFractionDigits: 2,
   }).format(Number(value));
 export const compactMoney = (value: string | number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'EGP',
     notation: 'compact',
     maximumFractionDigits: 1,
   }).format(Number(value));

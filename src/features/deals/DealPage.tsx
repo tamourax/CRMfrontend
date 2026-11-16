@@ -5,9 +5,11 @@ import { ArrowLeft, ArrowUpRight, Building2, CalendarDays, CircleDollarSign } fr
 import { dateLabel, money } from '../../lib/format';
 
 import { Badge, ErrorState, Loading, PageHeader } from '../../components';
+import { useT } from '../../preferences/LocaleProvider';
 
 export function DealPage() {
   const { id } = useParams();
+  const t = useT();
   const query = useDeal(id);
   if (query.isPending) return <Loading />;
   if (query.isError) return <ErrorState error={query.error} retry={() => void query.refetch()} />;
@@ -24,6 +26,15 @@ export function DealPage() {
         description="Every detail you need to keep this opportunity moving."
         action={<Badge value={deal.stage} />}
       />
+      <section className="project-cover" aria-label={t('deals.projectOverview')}>
+        <img src="/images/cairo-business-district.svg" alt="Illustration of a Cairo business district along the Nile" />
+        <div className="project-cover-shade" />
+        <div className="project-cover-copy">
+          <span className="eyebrow">{t('deals.projectOverview')}</span>
+          <h2>{deal.title}</h2>
+          <p>{deal.customer?.company} · {deal.customer?.industry} · {deal.customer?.city || t('common.egypt')}</p>
+        </div>
+      </section>
       <div className="deal-highlights">
         <section className="panel">
           <CircleDollarSign size={22} />
@@ -33,9 +44,12 @@ export function DealPage() {
         <section className="panel">
           <Building2 size={22} />
           <span>Customer</span>
-          <Link to={`/customers/${deal.customer_id}`}>
-            {deal.customer?.company}
-            <ArrowUpRight size={17} />
+          <Link className="deal-customer-link" to={`/customers/${deal.customer_id}`}>
+            <span>
+              <strong>{deal.customer?.company}</strong>
+              <small>{deal.customer?.name} · {deal.customer?.industry} · {deal.customer?.city || t('common.egypt')}</small>
+            </span>
+            <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
         </section>
         <section className="panel">
@@ -46,7 +60,7 @@ export function DealPage() {
       </div>
       <section className="panel">
         <div className="panel-heading">
-          <h2>Deal overview</h2>
+          <h2>Project scope</h2>
         </div>
         <p className="notes-text">{deal.description || 'No description recorded.'}</p>
         {deal.stage === 'lost' && (

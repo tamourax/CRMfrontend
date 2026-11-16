@@ -59,10 +59,10 @@ Run the backend seeder before signing in.
 
 | Workspace   | Username / email      | Demo password    |
 | ----------- | --------------------- | ---------------- |
-| Alex Morgan | `alex@orbit.example`  | `OrbitDemo!2026` |
-| Sarah Chen  | `sarah@orbit.example` | `OrbitDemo!2026` |
+| Ahmed Tamer | `ahmed@7bahmedtamer.example` | `OrbitDemo!2026` |
+| Nour Hassan | `nour@7bahmedtamer.example` | `OrbitDemo!2026` |
 
-These are intentionally public, fictional demo credentials. Each account sees its own 10 customers and 30 deals. Use two browser profiles or an incognito window to demonstrate isolation. Remove demo accounts before production use.
+These are intentionally public, fictional demo credentials. Each account sees its own 10 Egyptian customer records and 30 deals. Seeded phones use Egypt's `+20` country code, email addresses use reserved `.example` domains, and deal values are shown in Egyptian pounds (EGP). Use two browser profiles or an incognito window to demonstrate isolation. Remove demo accounts before production use.
 
 ## Features and preview
 

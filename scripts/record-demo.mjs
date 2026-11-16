@@ -52,9 +52,9 @@ if (liveAi) {
 }
 await pause();
 await page.getByRole('link', { name: 'Customers', exact: true }).click();
-await page.getByRole('link', { name: 'Atlas Industries', exact: true }).waitFor();
+await page.getByRole('link', { name: 'NileBridge Technologies', exact: true }).waitFor();
 await pause();
-await page.getByRole('link', { name: 'Atlas Industries', exact: true }).click();
+await page.getByRole('link', { name: 'NileBridge Technologies', exact: true }).click();
 await page.getByRole('heading', { name: 'Associated deals' }).waitFor();
 await pause();
 await waitForAi('/ai-summary', () =>

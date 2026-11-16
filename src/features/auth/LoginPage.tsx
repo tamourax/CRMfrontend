@@ -7,7 +7,7 @@ import { errorMessage } from '../../lib/api';
 import { useT } from '../../preferences/LocaleProvider';
 
 export function LoginPage() {
-  const [email, setEmail] = useState('alex@orbit.example');
+  const [email, setEmail] = useState('ahmed@7bahmedtamer.example');
   const [password, setPassword] = useState('');
   const login = useLogin();
   const t = useT();

@@ -29,7 +29,8 @@
     "lightMode": "التبديل إلى الوضع الفاتح",
     "sources": "المصادر",
     "tryAgain": "أعد المحاولة",
-    "notFound": "الصفحة غير موجودة"
+    "notFound": "الصفحة غير موجودة",
+    "egypt": "مصر"
   },
   "customers": {
     "search": "ابحث بالاسم أو الشركة…",
@@ -37,6 +38,9 @@
     "contactCompany": "جهة الاتصال والشركة",
     "contactName": "اسم جهة الاتصال",
     "industry": "القطاع",
+    "industryLocation": "القطاع والموقع",
+    "overview": "نظرة عامة على العميل",
+    "associatedDealsCount": "{count} صفقة مرتبطة",
     "relationshipNotes": "ملاحظات العلاقة",
     "associatedDeals": "الصفقات المرتبطة",
     "empty": "لم يتم العثور على عملاء"
@@ -56,6 +60,7 @@
     "closingSoonest": "الأقرب للإغلاق",
     "newestFirst": "الأحدث أولًا",
     "overview": "تفاصيل الصفقة",
+    "projectOverview": "نظرة عامة على المشروع",
     "dealValue": "قيمة الصفقة",
     "lossReason": "سبب الخسارة"
   },

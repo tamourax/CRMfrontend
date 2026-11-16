@@ -25,7 +25,7 @@ describe('workspace integration', () => {
   it('renders authoritative sales statistics and deal links', async () => {
     mount();
     expect(await screen.findByRole('heading', { name: 'Sales overview' })).toBeVisible();
-    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+    expect(await screen.findByRole('link', { name: 'ERP implementation' })).toHaveAttribute(
       'href',
       '/deals/1',
     );
@@ -77,9 +77,9 @@ describe('workspace integration', () => {
   it('displays customers and follows the customer/deal relationship', async () => {
     mount('/customers');
     const actor = userEvent.setup();
-    await actor.click(await screen.findByRole('link', { name: 'Atlas Industries' }));
-    expect(await screen.findByRole('heading', { name: 'Atlas Industries' })).toBeVisible();
-    expect(await screen.findByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+    await actor.click(await screen.findByRole('link', { name: 'NileBridge Technologies' }));
+    expect(await screen.findByRole('heading', { name: 'NileBridge Technologies' })).toBeVisible();
+    expect(await screen.findByRole('link', { name: 'ERP implementation' })).toHaveAttribute(
       'href',
       '/deals/1',
     );
@@ -121,8 +121,8 @@ describe('workspace integration', () => {
     const actor = userEvent.setup();
     await actor.click(await screen.findByRole('button', { name: 'Generate summary' }));
     expect(await screen.findByRole('heading', { name: 'Negotiation overview' })).toBeVisible();
-    expect(screen.getByText('The recorded negotiation value is USD 12500.25.')).toBeVisible();
-    expect(screen.getAllByRole('link', { name: 'Platform rollout' }).length).toBe(2);
+    expect(screen.getByText('The recorded negotiation value is EGP 1250000.25.')).toBeVisible();
+    expect(screen.getAllByRole('link', { name: 'ERP implementation' }).length).toBe(2);
   });
 
   it('shows missing AI configuration honestly without a fabricated summary', async () => {
@@ -148,7 +148,7 @@ describe('workspace integration', () => {
     await actor.click(screen.getByRole('button', { name: 'Send question' }));
     expect(await screen.findByText('What is the negotiation value?')).toBeVisible();
     expect(await screen.findByRole('heading', { name: 'Negotiation overview' })).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Platform rollout' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'ERP implementation' })).toHaveAttribute(
       'href',
       '/deals/1',
     );

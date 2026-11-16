@@ -13,6 +13,7 @@ export interface Customer {
   phone: string | null;
   company: string;
   industry: string;
+  city?: string | null;
   status: 'prospect' | 'active' | 'inactive';
   notes?: string | null;
   deals_count?: number;
@@ -27,7 +28,7 @@ export interface Deal {
   expected_close_date: string | null;
   description?: string | null;
   lost_reason?: string | null;
-  customer?: Pick<Customer, 'id' | 'name' | 'company'>;
+  customer?: Pick<Customer, 'id' | 'name' | 'company' | 'industry' | 'city'>;
 }
 export interface Page<T> {
   data: T[];
