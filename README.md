@@ -103,9 +103,9 @@ For account isolation, open Ahmed and Nour in separate browser profiles. Logging
 
 Start with the overview, open Customers → **NileBridge Technologies**, inspect its notes/deals, follow a deal into its project details, then filter Deals by Negotiation. Generate a customer summary, ask the assistant the five assessment questions, and generate the report narrative. Switch Arabic/English and theme, then try the mobile drawer. Follow the [step-by-step user guide](docs/USER_GUIDE.md) for expected results and reviewer talking points.
 
-[Earlier overview screenshot](docs/images/overview.png) · [Customer screenshot](docs/images/customer.png) · [Mobile screenshot](docs/images/mobile.png) · [Recorded demo](docs/demo.webm)
+[Current overview screenshot](docs/images/overview.png) · [Customer details](docs/images/customer.png) · [Deal project details](docs/images/deal.png) · [Negotiation deals](docs/images/deals.png) · [Mobile screenshot](docs/images/mobile.png) · [Recorded story walkthrough](docs/demo.webm)
 
-These media were captured earlier and may show older branding, accounts or currency. The current seeded application and user guide describe the delivered behavior. To record a fresh local walkthrough, use `npm run demo` with both apps running.
+The included chaptered walkthrough was captured from the current app with three live AI requests accepted by backend verification. It follows the overview, customer relationship, linked deal, deal assistant, Arabic/RTL and dark-mode preferences, then sign-out. Data values and record IDs vary with each seed. The mobile screenshot is an earlier capture. To record a fresh walkthrough, run `npm run demo` with both apps running, seeded records, Chromium, and a working AI provider configuration; the recording script only replaces the video after every live AI request succeeds.
 
 ## Architecture
 
