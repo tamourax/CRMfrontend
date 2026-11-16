@@ -2,6 +2,7 @@ export const money = (value: string | number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'EGP',
+    minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   }).format(Number(value));
 export const compactMoney = (value: string | number) =>
@@ -9,6 +10,7 @@ export const compactMoney = (value: string | number) =>
     style: 'currency',
     currency: 'EGP',
     notation: 'compact',
+    minimumFractionDigits: 0,
     maximumFractionDigits: 1,
   }).format(Number(value));
 export const dateLabel = (value: string | null | undefined) =>
