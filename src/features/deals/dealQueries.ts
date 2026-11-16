@@ -1,5 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../../lib/api';
+import { useListQuery, useResourceQuery } from '../../hooks/useApiQuery';
 import type { Deal, Page } from '../../types';
 
 interface DealFilters {
@@ -18,19 +17,11 @@ export const dealKeys = {
 };
 
 export function useDeals(filters: DealFilters) {
-  return useQuery({
-    queryKey: dealKeys.list(filters),
-    queryFn: async ({ signal }) =>
-      (await api.get<Page<Deal>>('/api/deals', { params: filters, signal })).data,
-  });
+  return useListQuery<Page<Deal>>(dealKeys.list(filters), '/api/deals', filters);
 }
 
 export function useDeal(id: string | undefined) {
-  return useQuery({
-    queryKey: dealKeys.detail(id),
-    queryFn: async ({ signal }) =>
-      (await api.get<{ data: Deal }>('/api/deals/' + id, { signal })).data.data,
-  });
+  return useResourceQuery<Deal>(dealKeys.detail(id), '/api/deals/' + id);
 }
 
 export function usePriorityDeals() {

@@ -1,15 +1,18 @@
 import { Panel, Badge, Empty, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 import { useCustomers } from './customerQueries';
-import { useState } from 'react';
+import { useListFilters } from '../../hooks/useListFilters';
 
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search, SlidersHorizontal, Users } from 'lucide-react';
 import { titleCase } from '../../lib/format';
 
 export function CustomersPage() {
-  const [search, setSearch] = useState('');
-  const [status, setStatus] = useState('');
-  const [page, setPage] = useState(1);
+  const {
+    filters: { search, status },
+    page,
+    setPage,
+    setFilter,
+  } = useListFilters({ search: '', status: '' });
   const query = useCustomers({ search, status, page });
   return (
     <>
@@ -33,8 +36,7 @@ export function CustomersPage() {
               placeholder="Search name or company…"
               value={search}
               onChange={(event) => {
-                setSearch(event.target.value);
-                setPage(1);
+                setFilter('search', event.target.value);
               }}
             />
           </label>
@@ -44,8 +46,7 @@ export function CustomersPage() {
               aria-label="Customer status"
               value={status}
               onChange={(event) => {
-                setStatus(event.target.value);
-                setPage(1);
+                setFilter('status', event.target.value);
               }}
             >
               <option value="">All statuses</option>

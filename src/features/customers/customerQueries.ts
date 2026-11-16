@@ -1,5 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../../lib/api';
+import { useListQuery, useResourceQuery } from '../../hooks/useApiQuery';
 import type { Customer, Page } from '../../types';
 
 interface CustomerFilters {
@@ -14,17 +13,9 @@ export const customerKeys = {
 };
 
 export function useCustomers(filters: CustomerFilters) {
-  return useQuery({
-    queryKey: customerKeys.list(filters),
-    queryFn: async ({ signal }) =>
-      (await api.get<Page<Customer>>('/api/customers', { params: filters, signal })).data,
-  });
+  return useListQuery<Page<Customer>>(customerKeys.list(filters), '/api/customers', filters);
 }
 
 export function useCustomer(id: string | undefined) {
-  return useQuery({
-    queryKey: customerKeys.detail(id),
-    queryFn: async ({ signal }) =>
-      (await api.get<{ data: Customer }>('/api/customers/' + id, { signal })).data.data,
-  });
+  return useResourceQuery<Customer>(customerKeys.detail(id), '/api/customers/' + id);
 }

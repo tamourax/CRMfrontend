@@ -1,7 +1,7 @@
 import { Panel, DealTable, ErrorState, Loading, PageHeader, Pagination } from '../../components';
 import { useSearchParams } from 'react-router-dom';
 import { useDeals } from './dealQueries';
-import { useState } from 'react';
+import { useListFilters } from '../../hooks/useListFilters';
 
 import { CircleDollarSign, Search } from 'lucide-react';
 import { stages } from '../../lib/constants';
@@ -9,12 +9,18 @@ import { titleCase } from '../../lib/format';
 
 export function DealsPage() {
   const [params] = useSearchParams();
-  const [stage, setStage] = useState(params.get('stage') || '');
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [sort, setSort] = useState('value_desc');
+  const {
+    filters: { stage, search, sort, closing },
+    page,
+    setPage,
+    setFilter,
+  } = useListFilters({
+    stage: params.get('stage') || '',
+    search: '',
+    sort: 'value_desc',
+    closing: params.get('closing') || '',
+  });
   const customerId = params.get('customer_id') || '';
-  const [closing, setClosing] = useState(params.get('closing') || '');
   const query = useDeals({ stage, page, search, sort, customer_id: customerId, closing });
   return (
     <>
@@ -36,8 +42,7 @@ export function DealsPage() {
               className={stage === value ? 'selected' : ''}
               key={value}
               onClick={() => {
-                setStage(value);
-                setPage(1);
+                setFilter('stage', value);
               }}
             >
               {value ? titleCase(value) : 'All deals'}
@@ -52,8 +57,7 @@ export function DealsPage() {
               placeholder="Search deals…"
               value={search}
               onChange={(event) => {
-                setSearch(event.target.value);
-                setPage(1);
+                setFilter('search', event.target.value);
               }}
             />
           </label>
@@ -62,8 +66,7 @@ export function DealsPage() {
               aria-label="Closing date"
               value={closing}
               onChange={(event) => {
-                setClosing(event.target.value);
-                setPage(1);
+                setFilter('closing', event.target.value);
               }}
             >
               <option value="">Any closing date</option>
@@ -74,8 +77,7 @@ export function DealsPage() {
               aria-label="Sort deals"
               value={sort}
               onChange={(event) => {
-                setSort(event.target.value);
-                setPage(1);
+                setFilter('sort', event.target.value);
               }}
             >
               <option value="value_desc">Highest value first</option>
