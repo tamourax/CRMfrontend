@@ -2,18 +2,14 @@ import { useLogin } from './queries';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
-import { ArrowRight, Building2, LoaderCircle } from 'lucide-react';
+import { ArrowRight, Building2, Handshake, LoaderCircle, Orbit } from 'lucide-react';
 import { errorMessage } from '../../lib/api';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '../../preferences/ThemeProvider';
-import { useLocale, useT } from '../../preferences/LocaleProvider';
+import { useT } from '../../preferences/LocaleProvider';
 
 export function LoginPage() {
   const [email, setEmail] = useState('alex@orbit.example');
   const [password, setPassword] = useState('');
   const login = useLogin();
-  const { theme, toggleTheme } = useTheme();
-  const { locale, setLocale } = useLocale();
   const t = useT();
   function submit(event: FormEvent) {
     event.preventDefault();
@@ -21,13 +17,22 @@ export function LoginPage() {
   }
   return (
     <main className="login-page">
+      <section className="login-story">
+        <div className="brand">
+          <Orbit size={28} />
+          <span>7B <span className="brand-dot">AHMED TAMER</span></span>
+        </div>
+        <div className="orbit-art" aria-hidden="true">
+          <div />
+          <div />
+          <div />
+          <span><Handshake size={48} /></span>
+          <i />
+          <b />
+        </div>
+      </section>
       <section className="login-form-side">
-        <button className="preference-toggle login-theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? t('common.lightMode') : t('common.darkMode')}>
-          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-        </button>
-        <button className="locale-toggle" type="button" onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}>{locale === 'en' ? t('common.arabic') : 'EN'}</button>
         <div className="login-form">
-          <strong className="login-brand">7B AHMED TAMER</strong>
           <span className="welcome-icon">
             <Building2 size={23} />
           </span>

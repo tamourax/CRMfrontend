@@ -144,11 +144,6 @@ html[data-theme='dark'] .preference-toggle {
   background: #fff;
   color: var(--dark);
 }
-.login-theme-toggle {
-  position: absolute;
-  top: 24px;
-  inset-inline-end: 24px;
-}
 button,
 input,
 select,
@@ -303,7 +298,7 @@ html[dir='rtl'] .workspace-footer {
   padding-left: 9px;
   white-space: nowrap;
 }
-html[dir='rtl'] .sidebar > .brand {
+.sidebar > .brand {
   font-size: 18px;
   letter-spacing: -0.4px;
   gap: 6px;
@@ -324,7 +319,7 @@ html[dir='rtl'] .sidebar > .brand {
   font-weight: 600;
 }
 .workspace-switch > svg {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: #8f9993;
 }
 .workspace-switch small {
@@ -383,7 +378,7 @@ html[dir='rtl'] .sidebar > .brand {
   color: #71855b;
   font-size: 9px;
   font-weight: 700;
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 3px 5px;
   border-radius: 4px;
 }
@@ -420,7 +415,7 @@ html[dir='rtl'] .sidebar > .brand {
   color: #929b94;
 }
 .user-row button {
-  margin-left: auto;
+  margin-inline-start: auto;
   background: transparent;
   color: #929b94;
   padding: 5px;
@@ -1796,14 +1791,6 @@ select {
 .login-form {
   width: 100%;
   max-width: 340px;
-}
-.login-brand {
-  display: block;
-  color: var(--dark);
-  font-family: 'Manrope Variable', sans-serif;
-  font-size: 18px;
-  letter-spacing: 0;
-  margin-bottom: 28px;
 }
 .welcome-icon {
   display: grid;
