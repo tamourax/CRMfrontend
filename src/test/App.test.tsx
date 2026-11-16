@@ -6,22 +6,39 @@ import { http, HttpResponse } from 'msw';
 import { describe, expect, it } from 'vitest';
 import { App } from '../App';
 import { LocaleProvider } from '../preferences/LocaleProvider';
+import { ThemeProvider } from '../preferences/ThemeProvider';
 import { server, page, result } from './server';
 
 function mount(path = '/') {
+  localStorage.setItem('orbit-theme', 'light');
+  localStorage.setItem('orbit-locale', 'en');
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   });
   return render(
     <QueryClientProvider client={client}>
       <MemoryRouter initialEntries={[path]}>
-        <LocaleProvider><App /></LocaleProvider>
+        <ThemeProvider>
+          <LocaleProvider>
+            <App />
+          </LocaleProvider>
+        </ThemeProvider>
       </MemoryRouter>
     </QueryClientProvider>,
   );
 }
 
 describe('workspace integration', () => {
+  it('clears the workspace when a revoked session receives a 401', async () => {
+    mount('/customers');
+    await screen.findByRole('link', { name: 'NileBridge Technologies' });
+    server.use(
+      http.get('http://localhost:8000/api/deals', () => HttpResponse.json({}, { status: 401 })),
+    );
+    await userEvent.click(screen.getByRole('link', { name: 'Deals' }));
+    expect(await screen.findByRole('heading', { name: 'Welcome back' })).toBeVisible();
+    expect(screen.queryByText('NileBridge Technologies')).not.toBeInTheDocument();
+  });
   it('renders authoritative sales statistics and deal links', async () => {
     mount();
     expect(await screen.findByRole('heading', { name: 'Sales overview' })).toBeVisible();
@@ -29,7 +46,7 @@ describe('workspace integration', () => {
       'href',
       '/deals/1',
     );
-    expect(screen.getAllByText('$12,500.25').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/EGP\s*1,250,000\.25/).length).toBeGreaterThan(0);
   });
 
   it('signs in after retrieving a CSRF cookie', async () => {

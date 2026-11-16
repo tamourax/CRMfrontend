@@ -143,7 +143,7 @@ Missing configuration, quota limits, timeouts, and unverifiable answers produce 
 | Command                | Purpose                                                               |
 | ---------------------- | --------------------------------------------------------------------- |
 | `npm run dev`          | Local frontend, port `5173`                                           |
-| `npm test`             | 15 integration tests using Testing Library and MSW                    |
+| `npm test`             | 16 integration tests using Testing Library and MSW                    |
 | `npm run build`        | TypeScript checks and production build                                |
 | `npm run format:check` | Verify formatting                                                     |
 | `npm run format`       | Apply Prettier formatting                                             |
@@ -182,5 +182,9 @@ Branches are retained on GitHub. Inspect the actual history with `git log --grap
 The repository uses LF line endings through `.gitattributes` so formatting checks behave consistently on Windows and Linux.
 
 ## Production notes
+
+Authentication credentials stay in Laravel's HttpOnly cookie; no access or refresh tokens are stored in localStorage, sessionStorage, or a React secure-storage library. New login revokes other devices. The UI clears private query data when the API returns `401`, checks session validity on focus and every minute while signed in, and clears previous account data on login/logout. The API's protected `POST /session/refresh` rotates a valid session cookie without extending its maximum lifetime.
+
+Vite development and preview servers send `nosniff`, frame denial, referrer and permissions headers. Configure these headers on the production static host too. A production Content Security Policy should permit scripts/fonts from `'self'`, images from `'self'` and `data:`, connections only to the configured API origin, and use `frame-ancestors 'none'; base-uri 'self'; form-action 'self'`. Existing chart styles require inline style attributes. Use HSTS at the HTTPS host. Vite's preview headers do not configure an external production host.
 
 Build with `npm run build` and serve `dist` with SPA fallback to `index.html`. Host frontend/API under the same parent domain or a same-origin proxy, use HTTPS and secure cookies, and remove demo users. Fonts are self-hosted. CRUD writes, roles, persisted conversations, streaming, and production hosting are outside this assessment version.
